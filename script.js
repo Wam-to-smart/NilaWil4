@@ -150,8 +150,39 @@ surpriseButton.addEventListener("click", () => {
 // ----------------------
 
 const heartContainer = document.getElementById("hearts");
+const endingSection = document.getElementById("ending");
+const endingStarsContainer = document.getElementById("endingStars");
+const endingSparklesContainer = document.getElementById("endingSparkles");
+const endingMessageLines = Array.from(document.querySelectorAll(".ending-line"));
+const endingSignature = document.querySelector(".ending-signature");
+const nav = document.querySelector("nav");
+const music = document.getElementById("music");
+const body = document.body;
+let endingSequenceTimers = [];
+
+function ensureMusicPlaying() {
+
+    if (!music) return;
+
+    music.volume = 0.35;
+
+    if (music.paused) {
+
+        music.play().catch(() => {});
+
+    }
+
+}
 
 function createFloatingIcon() {
+
+    if (body.classList.contains("ending-active")) {
+
+        createEndingSparkle();
+
+        return;
+
+    }
 
     const icon = document.createElement("div");
 
@@ -192,6 +223,125 @@ function createFloatingIcon() {
 
 }
 
+function createEndingSparkle() {
+
+    const sparkle = document.createElement("div");
+
+    sparkle.className = "ending-sparkle";
+
+    sparkle.style.left = Math.random() * 100 + "%";
+    sparkle.style.top = Math.random() * 100 + "%";
+    sparkle.style.setProperty("--drift-x", `${(Math.random() - 0.5) * 140}px`);
+    sparkle.style.setProperty("--drift-y", `${(Math.random() - 0.5) * 140}px`);
+
+    endingSparklesContainer.appendChild(sparkle);
+
+    requestAnimationFrame(() => {
+
+        sparkle.classList.add("is-visible");
+
+    });
+
+    setTimeout(() => {
+
+        sparkle.remove();
+
+    }, 2600);
+
+}
+
+function createEndingBurst() {
+
+    const messageShell = document.querySelector(".ending-message-shell");
+    const sectionRect = endingSection.getBoundingClientRect();
+    const shellRect = messageShell.getBoundingClientRect();
+
+    const centerX = shellRect.left + shellRect.width / 2 - sectionRect.left;
+    const centerY = shellRect.top + shellRect.height / 2 - sectionRect.top;
+    const particleCount = 24;
+
+    for (let i = 0; i < particleCount; i++) {
+
+        const particle = document.createElement("div");
+
+        particle.className = "ending-particle";
+        particle.innerHTML = ["♡", "💗", "💖", "💝"][i % 4];
+
+        const angle = (i / particleCount) * Math.PI * 2;
+        const radius = 65 + Math.random() * 90;
+        const driftX = Math.cos(angle) * radius;
+        const driftY = Math.sin(angle) * radius;
+
+        particle.style.left = `${centerX}px`;
+        particle.style.top = `${centerY}px`;
+        particle.style.setProperty("--drift-x", `${driftX}px`);
+        particle.style.setProperty("--drift-y", `${driftY}px`);
+        particle.style.fontSize = `${0.9 + Math.random() * 0.6}rem`;
+        particle.style.animationDelay = `${Math.random() * 0.15}s`;
+
+        endingSparklesContainer.appendChild(particle);
+
+    }
+
+    setTimeout(() => {
+
+        endingSparklesContainer.querySelectorAll(".ending-particle").forEach((particle) => particle.remove());
+
+    }, 3000);
+
+}
+
+function clearEndingSequence() {
+
+    endingSequenceTimers.forEach((timer) => clearTimeout(timer));
+
+    endingSequenceTimers = [];
+
+    endingSignature.classList.remove("is-visible");
+
+    endingSparklesContainer.innerHTML = "";
+
+}
+
+function setEndingState(active) {
+
+    body.classList.toggle("ending-active", active);
+    endingSection.classList.toggle("is-active", active);
+    nav.classList.toggle("is-hidden", active);
+
+    if (!active) {
+
+        clearEndingSequence();
+
+        return;
+
+    }
+
+    ensureMusicPlaying();
+
+    endingSignature.classList.remove("is-visible");
+    endingSparklesContainer.innerHTML = "";
+
+    endingMessageLines.forEach((line, index) => {
+
+        line.style.transitionDelay = `${0.1 + index * 0.16}s`;
+
+    });
+
+    endingSequenceTimers.push(setTimeout(() => {
+
+        createEndingBurst();
+
+    }, 2500));
+
+    endingSequenceTimers.push(setTimeout(() => {
+
+        endingSignature.classList.add("is-visible");
+
+    }, 4600));
+
+}
+
 setInterval(createFloatingIcon, 250);
 
 // ----------------------
@@ -200,7 +350,7 @@ setInterval(createFloatingIcon, 250);
 
 const starContainer = document.getElementById("stars");
 
-for (let i = 0; i < 120; i++) {
+for (let i = 0; i < 220; i++) {
 
     const star = document.createElement("div");
 
@@ -221,6 +371,45 @@ for (let i = 0; i < 120; i++) {
     starContainer.appendChild(star);
 
 }
+
+for (let i = 0; i < 180; i++) {
+
+    const star = document.createElement("div");
+
+    star.classList.add("ending-star");
+
+    star.style.left = Math.random() * 100 + "%";
+    star.style.top = Math.random() * 100 + "%";
+    star.style.animationDelay = Math.random() * 3 + "s";
+    star.style.opacity = 0.2 + Math.random() * 0.8;
+
+    endingStarsContainer.appendChild(star);
+
+}
+
+const endingObserver = new IntersectionObserver((entries) => {
+
+    entries.forEach((entry) => {
+
+        if (entry.isIntersecting) {
+
+            setEndingState(true);
+
+        } else {
+
+            setEndingState(false);
+
+        }
+
+    });
+
+}, {
+
+    threshold: 0.45
+
+});
+
+endingObserver.observe(endingSection);
 
 // ----------------------
 // Cursor Glow
