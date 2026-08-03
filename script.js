@@ -150,7 +150,8 @@ if (openButton) {
 
         if (letterSection) {
 
-            letterSection.scrollIntoView({
+            window.scrollTo({
+                top: letterSection.offsetTop - 120,
 
                 behavior: "smooth"
 
