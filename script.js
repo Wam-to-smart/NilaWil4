@@ -1,33 +1,8 @@
-/* ==========================================
-        script.js (Part 1)
-        For Nila 💖
-========================================== */
+"use strict";
 
-// ---------------------------
-// Loader
-// ---------------------------
+const body = document.body;
 
-window.addEventListener("load", () => {
-
-    const loader = document.getElementById("loader");
-
-    setTimeout(() => {
-
-        loader.style.opacity = "0";
-
-        setTimeout(() => {
-
-            loader.style.display = "none";
-
-        }, 1000);
-
-    }, 1800);
-
-});
-
-// ---------------------------
-// Elements
-// ---------------------------
+const loader = document.getElementById("loader");
 
 const music = document.getElementById("music");
 
@@ -37,169 +12,181 @@ const openButton = document.getElementById("openButton");
 
 const typedText = document.getElementById("typedText");
 
-const counter = document.getElementById("daysCounter");
+const daysCounter = document.getElementById("daysCounter");
 
-// ---------------------------
-// Music
-// ---------------------------
+const navbar = document.querySelector("nav");
 
-music.volume = 0.35;
+window.addEventListener("load", () => {
+
+    if (!loader) return;
+
+    setTimeout(() => {
+
+        loader.style.opacity = "0";
+
+        setTimeout(() => {
+
+            loader.style.display = "none";
+
+        }, 800);
+
+    }, 1400);
+
+});
 
 let musicStarted = false;
 
-function startMusic() {
+if (music) {
 
-    if (musicStarted) return;
+    music.volume = 0.35;
+
+}
+
+function playMusic() {
+
+    if (!music || musicStarted) return;
 
     music.play().catch(() => {});
 
     musicStarted = true;
 
-    musicToggle.innerHTML = "🔊";
+    if (musicToggle) {
+
+        musicToggle.textContent = "🔊";
+
+    }
 
 }
 
-musicToggle.addEventListener("click", () => {
+function toggleMusic() {
+
+    if (!music) return;
 
     if (music.paused) {
 
         music.play().catch(() => {});
 
-        musicToggle.innerHTML = "🔊";
+        if (musicToggle) {
 
-    }
+            musicToggle.textContent = "🔊";
 
-    else {
+        }
+
+    } else {
 
         music.pause();
 
-        musicToggle.innerHTML = "🔇";
+        if (musicToggle) {
+
+            musicToggle.textContent = "🔇";
+
+        }
 
     }
 
-});
+}
 
-// ---------------------------
-// Letter
-// ---------------------------
+if (musicToggle) {
+
+    musicToggle.addEventListener("click", toggleMusic);
+
+}
 
 const letter = `Dear Nila,
 
 I don't think I say this enough, but I truly appreciate you.
 
-You have this incredible way of making ordinary moments feel special.
+You have a way of making ordinary moments unforgettable.
 
-Your smile, your kindness, your laugh, and even the smallest things about you have made memories I'll never forget.
-
-Every conversation with you is something I look forward to.
-
-Thank you for always being yourself.
+Your smile, your kindness, your laugh, and even the smallest things about you have made memories I'll always treasure.
 
 Pink will always remind me of you.
 
-Every little hamster I see reminds me of your adorable personality. 🐹💖
+Every little hamster reminds me of your adorable personality. 🐰💖
 
-No matter where life takes us, I hope you always remember how truly amazing you are.
+Thank you for being exactly who you are.
 
-You deserve to be appreciated every single day.
+No matter where life takes us, I hope you always remember how appreciated you are.
 
-This website is only a tiny reminder of how thankful I am that I met you.
-
-Thank you for being you.
+This little website could never fully express everything I feel, but I hope it reminds you just how special you are to me.
 
 Love,
 
 Tahmid ❤️`;
 
-let currentCharacter = 0;
-
 let typingStarted = false;
 
-function typeWriter() {
+let letterIndex = 0;
 
-    if (currentCharacter >= letter.length)
-        return;
+function typeLetter() {
 
-    typedText.textContent +=
-        letter.charAt(currentCharacter);
+    if (!typedText) return;
 
-    currentCharacter++;
+    if (letterIndex >= letter.length) return;
 
-    setTimeout(typeWriter, 32);
+    typedText.textContent += letter.charAt(letterIndex);
+
+    letterIndex++;
+
+    setTimeout(typeLetter, 28);
 
 }
 
-// ---------------------------
-// Open Button
-// ---------------------------
+if (openButton) {
 
-openButton.addEventListener("click", () => {
+    openButton.addEventListener("click", () => {
 
-    document.getElementById("letter").scrollIntoView({
+        playMusic();
 
-        behavior: "smooth"
+        if (!typingStarted) {
+
+            typingStarted = true;
+
+            typeLetter();
+
+        }
+
+        const letterSection = document.getElementById("letter");
+
+        if (letterSection) {
+
+            letterSection.scrollIntoView({
+
+                behavior: "smooth"
+
+            });
+
+        }
 
     });
 
-    startMusic();
+}
 
-    if (!typingStarted) {
-
-        typingStarted = true;
-
-        typeWriter();
-
-    }
-
-});
-
-// ---------------------------
-// Days Counter
-// ---------------------------
-
-const startDate =
-    new Date("2025-10-26T00:00:00");
+const relationshipDate = new Date("2025-10-26T00:00:00");
 
 function updateCounter() {
 
+    if (!daysCounter) return;
+
     const now = new Date();
 
-    const difference =
-        now - startDate;
+    const diff = now - relationshipDate;
 
-    const totalDays =
-        Math.floor(
-            difference /
-            (1000 * 60 * 60 * 24)
-        );
+    const totalSeconds = Math.floor(diff / 1000);
 
-    const totalHours =
-        Math.floor(
-            difference /
-            (1000 * 60 * 60)
-        );
+    const days = Math.floor(totalSeconds / 86400);
 
-    const totalMinutes =
-        Math.floor(
-            difference /
-            (1000 * 60)
-        );
+    const hours = Math.floor((totalSeconds % 86400) / 3600);
 
-    const totalSeconds =
-        Math.floor(
-            difference /
-            1000
-        );
+    const minutes = Math.floor((totalSeconds % 3600) / 60);
 
-    counter.innerHTML = `
-        ${totalDays} Days
+    const seconds = totalSeconds % 60;
+
+    daysCounter.innerHTML = `
+        ${days} Days
         <br>
-        <span style="font-size:20px;font-weight:400;">
-            ${totalHours.toLocaleString()} Hours
-            <br>
-            ${totalMinutes.toLocaleString()} Minutes
-            <br>
-            ${totalSeconds.toLocaleString()} Seconds
+        <span style="font-size:18px;font-weight:400;">
+            ${hours}h ${minutes}m ${seconds}s
         </span>
     `;
 
@@ -208,41 +195,36 @@ function updateCounter() {
 updateCounter();
 
 setInterval(updateCounter, 1000);
-/* ==========================================
-        script.js (Part 2)
-        For Nila 💖
-========================================== */
 
-// ---------------------------
-// Floating Hearts & Hamsters
-// ---------------------------
-
+console.log("✅ Part 1 Loaded");
 const heartContainer = document.getElementById("hearts");
 
-const icons = [
+const starsContainer = document.getElementById("stars");
+
+const sections = document.querySelectorAll(".glass");
+
+const floatingIcons = [
     "💖",
     "💕",
     "💗",
-    "💝",
-    "✨",
+    "❤️",
     "🌸",
-    "🐹"
+    "✨",
+    "🐰"
 ];
 
 function createFloatingIcon() {
 
-    if (body.classList.contains("ending-active")) {
+    if (!heartContainer) return;
 
-        return;
-
-    }
+    if (body.classList.contains("ending-active")) return;
 
     const icon = document.createElement("div");
 
-    icon.classList.add("heart");
+    icon.className = "heart";
 
-    icon.innerHTML =
-        icons[Math.floor(Math.random() * icons.length)];
+    icon.textContent =
+        floatingIcons[Math.floor(Math.random() * floatingIcons.length)];
 
     icon.style.left =
         Math.random() * 100 + "vw";
@@ -251,10 +233,10 @@ function createFloatingIcon() {
         (18 + Math.random() * 22) + "px";
 
     icon.style.animationDuration =
-        (5 + Math.random() * 5) + "s";
+        (5 + Math.random() * 6) + "s";
 
     icon.style.opacity =
-        0.45 + Math.random() * 0.5;
+        (.35 + Math.random() * .55).toString();
 
     heartContainer.appendChild(icon);
 
@@ -262,51 +244,399 @@ function createFloatingIcon() {
 
         icon.remove();
 
-    }, 10000);
+    }, 11000);
 
 }
 
 setInterval(createFloatingIcon, 220);
 
-// ---------------------------
-// Stars
-// ---------------------------
+if (starsContainer) {
 
-const stars = document.getElementById("stars");
+    for (let i = 0; i < 180; i++) {
 
-for (let i = 0; i < 180; i++) {
+        const star = document.createElement("div");
 
-    const star = document.createElement("div");
+        star.className = "star";
 
-    star.classList.add("star");
+        star.style.left =
+            Math.random() * 100 + "vw";
 
-    star.style.left =
-        Math.random() * 100 + "vw";
+        star.style.top =
+            Math.random() * 100 + "vh";
 
-    star.style.top =
-        Math.random() * 100 + "vh";
+        star.style.animationDelay =
+            Math.random() * 3 + "s";
 
-    star.style.animationDelay =
-        Math.random() * 3 + "s";
+        star.style.opacity =
+            Math.random().toString();
 
-    star.style.opacity =
-        Math.random();
+        starsContainer.appendChild(star);
 
-    stars.appendChild(star);
+    }
 
 }
 
-const endingObserver = new IntersectionObserver((entries) => {
+const cursorGlow = document.createElement("div");
 
-    entries.forEach((entry) => {
+cursorGlow.style.position = "fixed";
+cursorGlow.style.width = "18px";
+cursorGlow.style.height = "18px";
+cursorGlow.style.borderRadius = "50%";
+cursorGlow.style.background = "#ff69b4";
+cursorGlow.style.filter = "blur(12px)";
+cursorGlow.style.pointerEvents = "none";
+cursorGlow.style.zIndex = "999999";
+cursorGlow.style.opacity = ".75";
+cursorGlow.style.left = "0";
+cursorGlow.style.top = "0";
+cursorGlow.style.transition = "transform .05s linear";
+
+document.body.appendChild(cursorGlow);
+
+document.addEventListener("mousemove", e => {
+
+    cursorGlow.style.transform =
+        `translate(${e.clientX - 9}px, ${e.clientY - 9}px)`;
+
+});
+
+const revealObserver = new IntersectionObserver(entries => {
+
+    entries.forEach(entry => {
 
         if (entry.isIntersecting) {
 
-            setEndingState(true);
+            entry.target.style.opacity = "1";
 
-        } else {
+            entry.target.style.transform =
+                "translateY(0px)";
 
-            setEndingState(false);
+        }
+
+    });
+
+}, {
+
+    threshold: .15
+
+});
+
+sections.forEach(section => {
+
+    section.style.opacity = "0";
+
+    section.style.transform =
+        "translateY(60px)";
+
+    section.style.transition =
+        "opacity .9s ease, transform .9s ease";
+
+    revealObserver.observe(section);
+
+});
+
+console.log("✅ Part 2 Loaded");
+const surpriseButton = document.getElementById("surpriseButton");
+
+const secretMessage = document.getElementById("secretMessage");
+
+if (surpriseButton && secretMessage) {
+
+    surpriseButton.addEventListener("click", () => {
+
+        secretMessage.style.display = "block";
+
+        secretMessage.animate([
+
+            {
+                opacity: 0,
+                transform: "translateY(30px)"
+            },
+
+            {
+                opacity: 1,
+                transform: "translateY(0)"
+            }
+
+        ], {
+
+            duration: 900,
+            fill: "forwards",
+            easing: "ease"
+
+        });
+
+    });
+
+}
+
+setInterval(() => {
+
+    if (!openButton) return;
+
+    openButton.animate([
+
+        {
+            transform: "scale(1)"
+        },
+
+        {
+            transform: "scale(1.06)"
+        },
+
+        {
+            transform: "scale(1)"
+        }
+
+    ], {
+
+        duration: 1500
+
+    });
+
+}, 3500);
+
+window.addEventListener("scroll", () => {
+
+    if (!navbar) return;
+
+    if (window.scrollY > 120) {
+
+        navbar.style.background = "rgba(255,255,255,.88)";
+
+        navbar.style.backdropFilter = "blur(18px)";
+
+        navbar.style.boxShadow =
+            "0 10px 30px rgba(0,0,0,.08)";
+
+    }
+
+    else {
+
+        navbar.style.background =
+            "rgba(255,255,255,.28)";
+
+        navbar.style.boxShadow = "none";
+
+    }
+
+});
+
+const progressBar = document.createElement("div");
+
+progressBar.style.position = "fixed";
+progressBar.style.left = "0";
+progressBar.style.top = "0";
+progressBar.style.height = "4px";
+progressBar.style.width = "0%";
+progressBar.style.background =
+    "linear-gradient(to right,#ff5fa8,#ff97cb)";
+progressBar.style.zIndex = "999999";
+
+document.body.appendChild(progressBar);
+
+window.addEventListener("scroll", () => {
+
+    const scrollTop =
+        document.documentElement.scrollTop;
+
+    const scrollHeight =
+        document.documentElement.scrollHeight -
+        document.documentElement.clientHeight;
+
+    progressBar.style.width =
+        (scrollTop / scrollHeight) * 100 + "%";
+
+});
+
+document.querySelectorAll('nav a').forEach(link => {
+
+    link.addEventListener("click", e => {
+
+        e.preventDefault();
+
+        const target =
+            document.querySelector(link.getAttribute("href"));
+
+        if (!target) return;
+
+        target.scrollIntoView({
+
+            behavior: "smooth"
+
+        });
+
+    });
+
+});
+
+const footer = document.querySelector("footer");
+
+if (footer) {
+
+    footer.innerHTML = `
+        Made with all my heart ❤️
+        <br><br>
+        Thank you for being you.
+        <br><br>
+        Love,
+        <br>
+        Tahmid 💖
+    `;
+
+}
+
+console.clear();
+
+console.log(`
+███████╗ ██████╗ ██████╗
+██╔════╝██╔═══██╗██╔══██╗
+█████╗  ██║   ██║██████╔╝
+██╔══╝  ██║   ██║██╔══██╗
+██║     ╚██████╔╝██║  ██║
+╚═╝      ╚═════╝ ╚═╝  ╚═╝
+
+💖 FOR NILA 💖
+
+If you're reading this...
+
+I hope this website made you smile.
+
+❤️
+`);
+const endingSection =
+    document.getElementById("ending");
+
+const endingLines =
+    document.querySelectorAll(".ending-line");
+
+const endingSignature =
+    document.querySelector(".ending-signature");
+
+let endingTimers = [];
+
+function clearEndingTimers() {
+
+    endingTimers.forEach(timer => clearTimeout(timer));
+
+    endingTimers = [];
+
+}
+
+function resetEnding() {
+
+    if (!endingSection) return;
+
+    clearEndingTimers();
+
+    body.classList.remove("ending-active");
+
+    endingSection.classList.remove("is-active");
+
+    endingLines.forEach(line => {
+
+        line.style.opacity = "0";
+
+        line.style.transform = "translateY(40px)";
+
+    });
+
+    if (endingSignature) {
+
+        endingSignature.classList.remove("is-visible");
+
+        endingSignature.style.opacity = "0";
+
+        endingSignature.style.transform =
+            "translateY(30px) scale(.95)";
+
+    }
+
+}
+
+function playEnding() {
+
+    if (!endingSection) return;
+
+    clearEndingTimers();
+
+    body.classList.add("ending-active");
+
+    endingSection.classList.add("is-active");
+
+    endingLines.forEach(line => {
+
+        line.style.opacity = "0";
+
+        line.style.transform = "translateY(40px)";
+
+    });
+
+    if (endingSignature) {
+
+        endingSignature.classList.remove("is-visible");
+
+        endingSignature.style.opacity = "0";
+
+        endingSignature.style.transform =
+            "translateY(30px) scale(.95)";
+
+    }
+
+    endingLines.forEach((line, index) => {
+
+        const timer = setTimeout(() => {
+
+            line.style.transition =
+                "opacity .9s ease, transform .9s ease";
+
+            line.style.opacity = "1";
+
+            line.style.transform =
+                "translateY(0)";
+
+        }, index * 500);
+
+        endingTimers.push(timer);
+
+    });
+
+    const signatureDelay =
+        endingLines.length * 500 + 1200;
+
+    endingTimers.push(
+
+        setTimeout(() => {
+
+            if (!endingSignature) return;
+
+            endingSignature.classList.add("is-visible");
+
+            endingSignature.style.opacity = "1";
+
+            endingSignature.style.transform =
+                "translateY(0) scale(1)";
+
+        }, signatureDelay)
+
+    );
+
+}
+
+const endingObserver =
+new IntersectionObserver(entries => {
+
+    entries.forEach(entry => {
+
+        if (entry.isIntersecting) {
+
+            playEnding();
+
+        }
+
+        else {
+
+            resetEnding();
 
         }
 
@@ -318,258 +648,470 @@ const endingObserver = new IntersectionObserver((entries) => {
 
 });
 
-endingObserver.observe(endingSection);
+if (endingSection) {
 
-// ---------------------------
-// Cursor Glow
-// ---------------------------
+    endingObserver.observe(endingSection);
 
-const cursorGlow = document.createElement("div");
+}
 
-cursorGlow.style.position = "fixed";
-cursorGlow.style.width = "18px";
-cursorGlow.style.height = "18px";
-cursorGlow.style.borderRadius = "50%";
-cursorGlow.style.background = "#ff5fa8";
-cursorGlow.style.filter = "blur(10px)";
-cursorGlow.style.pointerEvents = "none";
-cursorGlow.style.zIndex = "999999";
-cursorGlow.style.opacity = ".75";
+resetEnding();
 
-document.body.appendChild(cursorGlow);
+console.log("✅ Part 4A Loaded");
+let currentEndingLine = 0;
 
-document.addEventListener("mousemove", e => {
+function revealEndingLine() {
 
-    cursorGlow.style.left =
-        (e.clientX - 9) + "px";
+    if (currentEndingLine >= endingLines.length) {
 
-    cursorGlow.style.top =
-        (e.clientY - 9) + "px";
+        if (endingSignature) {
 
-});
+            endingSignature.classList.add("is-visible");
 
-// ---------------------------
-// Reveal Sections
-// ---------------------------
-
-const sections =
-    document.querySelectorAll(".glass");
-
-const observer =
-    new IntersectionObserver(entries => {
-
-        entries.forEach(entry => {
-
-            if (entry.isIntersecting) {
-
-                entry.target.style.opacity = "1";
-
-                entry.target.style.transform =
-                    "translateY(0px)";
-
-            }
-
-        });
-
-    }, {
-
-        threshold: 0.15
-
-    });
-
-sections.forEach(section => {
-
-    section.style.opacity = "0";
-
-    section.style.transform =
-        "translateY(70px)";
-
-    section.style.transition =
-        "all 1s ease";
-
-    observer.observe(section);
-
-});
-
-// ---------------------------
-// Surprise Message
-// ---------------------------
-
-const surpriseButton =
-    document.getElementById("surpriseButton");
-
-const secretMessage =
-    document.getElementById("secretMessage");
-
-if (surpriseButton && secretMessage) {
-
-    surpriseButton.addEventListener("click", () => {
-
-        secretMessage.style.display = "block";
-
-        secretMessage.animate(
-
-            [
+            endingSignature.animate([
 
                 {
                     opacity: 0,
-                    transform: "translateY(30px)"
+                    transform: "translateY(30px) scale(.9)"
                 },
 
                 {
                     opacity: 1,
-                    transform: "translateY(0px)"
+                    transform: "translateY(0) scale(1)"
                 }
 
-            ],
+            ], {
 
-            {
+                duration: 1200,
+                fill: "forwards",
+                easing: "ease-out"
 
-                duration: 900,
-                fill: "forwards"
-
-            }
-
-        );
-
-    });
-
-}
-
-// ---------------------------
-// Hero Button Pulse
-// ---------------------------
-
-setInterval(() => {
-
-    openButton.animate(
-
-        [
-
-            {
-                transform: "scale(1)"
-            },
-
-            {
-                transform: "scale(1.08)"
-            },
-
-            {
-                transform: "scale(1)"
-            }
-
-        ],
-
-        {
-
-            duration: 1400
+            });
 
         }
 
+        if (typeof createHeartBurst === "function") {
+
+            setTimeout(createHeartBurst, 1200);
+
+        }
+
+        return;
+
+    }
+
+    const line = endingLines[currentEndingLine];
+
+    line.animate([
+
+        {
+            opacity: 0,
+            transform: "translateY(35px)",
+            filter: "blur(10px)"
+        },
+
+        {
+            opacity: 1,
+            transform: "translateY(0)",
+            filter: "blur(0px)"
+        }
+
+    ], {
+
+        duration: 900,
+        easing: "ease-out",
+        fill: "forwards"
+
+    });
+
+    line.style.opacity = "1";
+
+    line.style.transform = "translateY(0)";
+
+    currentEndingLine++;
+
+    endingTimers.push(
+
+        setTimeout(
+
+            revealEndingLine,
+
+            700
+
+        )
+
     );
 
-}, 3500);
+}
 
-// ---------------------------
-// Navbar Fade
-// ---------------------------
+const originalPlayEnding = playEnding;
 
-const navbar =
-    document.querySelector("nav");
+playEnding = function () {
 
-window.addEventListener("scroll", () => {
+    originalPlayEnding();
 
-    if (window.scrollY > 150) {
+    currentEndingLine = 0;
 
-        navbar.style.background =
-            "rgba(255,255,255,.85)";
+    endingLines.forEach(line => {
 
-        navbar.style.backdropFilter =
-            "blur(18px)";
+        line.style.opacity = "0";
+
+        line.style.transform = "translateY(35px)";
+
+    });
+
+    if (endingSignature) {
+
+        endingSignature.classList.remove("is-visible");
+
+        endingSignature.style.opacity = "0";
 
     }
 
-    else {
+    endingTimers.push(
 
-        navbar.style.background =
-            "rgba(255,255,255,.28)";
+        setTimeout(
+
+            revealEndingLine,
+
+            500
+
+        )
+
+    );
+
+};
+
+const originalResetEnding = resetEnding;
+
+resetEnding = function () {
+
+    originalResetEnding();
+
+    currentEndingLine = 0;
+
+    endingLines.forEach(line => {
+
+        line.getAnimations().forEach(animation => animation.cancel());
+
+        line.style.opacity = "0";
+
+        line.style.transform = "translateY(35px)";
+
+    });
+
+    if (endingSignature) {
+
+        endingSignature.getAnimations().forEach(animation => animation.cancel());
+
+        endingSignature.classList.remove("is-visible");
+
+        endingSignature.style.opacity = "0";
+
+        endingSignature.style.transform =
+            "translateY(30px)";
+
+    }
+
+};
+
+console.log("✅ Part 4B Loaded");
+const messageShell =
+    document.querySelector(".ending-message-shell");
+
+let sparkleInterval;
+
+function createHeartBurst() {
+
+    if (!messageShell) return;
+
+    const icons = [
+        "💖",
+        "💕",
+        "💗",
+        "❤️",
+        "✨",
+        "🌸"
+    ];
+
+    for (let i = 0; i < 45; i++) {
+
+        const particle =
+            document.createElement("span");
+
+        particle.className =
+            "ending-particle";
+
+        particle.textContent =
+            icons[Math.floor(Math.random() * icons.length)];
+
+        particle.style.left = "50%";
+
+        particle.style.top = "50%";
+
+        particle.style.setProperty(
+
+            "--drift-x",
+
+            (Math.random() * 420 - 210) + "px"
+
+        );
+
+        particle.style.setProperty(
+
+            "--drift-y",
+
+            (-100 - Math.random() * 260) + "px"
+
+        );
+
+        particle.style.fontSize =
+            (18 + Math.random() * 18) + "px";
+
+        messageShell.appendChild(particle);
+
+        particle.addEventListener(
+
+            "animationend",
+
+            () => particle.remove()
+
+        );
+
+    }
+
+}
+
+function startSparkles() {
+
+    stopSparkles();
+
+    sparkleInterval = setInterval(() => {
+
+        if (!endingSection) return;
+
+        if (!endingSection.classList.contains("is-active"))
+            return;
+
+        const sparkle =
+            document.createElement("div");
+
+        sparkle.textContent = "✨";
+
+        sparkle.style.position = "absolute";
+
+        sparkle.style.left =
+            Math.random() * 100 + "%";
+
+        sparkle.style.top =
+            Math.random() * 100 + "%";
+
+        sparkle.style.fontSize =
+            (10 + Math.random() * 12) + "px";
+
+        sparkle.style.pointerEvents = "none";
+
+        sparkle.style.opacity = ".9";
+
+        sparkle.style.zIndex = "8";
+
+        sparkle.style.transition =
+            "2.2s ease";
+
+        endingSection.appendChild(sparkle);
+
+        requestAnimationFrame(() => {
+
+            sparkle.style.transform =
+                `translateY(${-40 - Math.random()*60}px)
+                 scale(${0.5 + Math.random()})`;
+
+            sparkle.style.opacity = "0";
+
+        });
+
+        setTimeout(() => {
+
+            sparkle.remove();
+
+        }, 2200);
+
+    }, 180);
+
+}
+
+function stopSparkles() {
+
+    if (sparkleInterval) {
+
+        clearInterval(sparkleInterval);
+
+        sparkleInterval = null;
+
+    }
+
+}
+
+const previousPlayEnding = playEnding;
+
+playEnding = function () {
+
+    previousPlayEnding();
+
+    startSparkles();
+
+    endingTimers.push(
+
+        setTimeout(() => {
+
+            createHeartBurst();
+
+        }, endingLines.length * 700 + 1800)
+
+    );
+
+};
+
+const previousResetEnding = resetEnding;
+
+resetEnding = function () {
+
+    previousResetEnding();
+
+    stopSparkles();
+
+    document
+        .querySelectorAll(".ending-particle")
+        .forEach(particle => particle.remove());
+
+};
+const waves =
+    document.querySelectorAll(".ending-waves span");
+
+let waveOffset = 0;
+
+function animateWaves() {
+
+    waveOffset += 0.02;
+
+    waves.forEach((wave, index) => {
+
+        const x =
+            Math.sin(waveOffset + index) * 30;
+
+        wave.style.transform =
+            `translateX(${x}px)`;
+
+    });
+
+    requestAnimationFrame(animateWaves);
+
+}
+
+animateWaves();
+
+const sun =
+    document.querySelector(".ending-sun");
+
+let sunPulse = 0;
+
+function animateSun() {
+
+    if (sun) {
+
+        sunPulse += 0.015;
+
+        const scale =
+            1 + Math.sin(sunPulse) * 0.04;
+
+        const glow =
+            60 + Math.sin(sunPulse) * 25;
+
+        sun.style.transform =
+            `translateX(-50%) scale(${scale})`;
+
+        sun.style.boxShadow =
+            `0 0 ${glow}px rgba(255,210,120,.65)`;
+
+    }
+
+    requestAnimationFrame(animateSun);
+
+}
+
+animateSun();
+
+const water =
+    document.querySelector(".ending-water");
+
+let shimmer = 0;
+
+function animateWater() {
+
+    if (water) {
+
+        shimmer += 0.01;
+
+        const brightness =
+            0.9 + Math.sin(shimmer) * 0.08;
+
+        water.style.filter =
+            `brightness(${brightness})`;
+
+    }
+
+    requestAnimationFrame(animateWater);
+
+}
+
+animateWater();
+
+
+
+window.addEventListener("scroll", () => {
+
+    if (!endingSection) return;
+
+    const rect =
+        endingSection.getBoundingClientRect();
+
+    const visible =
+        rect.top <
+        window.innerHeight * 0.55;
+
+    if (navbar) {
+
+        if (visible) {
+
+            navbar.classList.add("is-hidden");
+
+        }
+
+        else {
+
+            navbar.classList.remove("is-hidden");
+
+        }
+
+    }
+
+    if (footer) {
+
+        footer.style.transition =
+            "opacity .8s ease";
+
+        footer.style.opacity =
+            visible ? ".35" : "1";
 
     }
 
 });
 
-// ---------------------------
-// Scroll Progress Bar
-// ---------------------------
+window.addEventListener("beforeunload", () => {
 
-const progress =
-    document.createElement("div");
+    stopSparkles();
 
-progress.style.position = "fixed";
-progress.style.top = "0";
-progress.style.left = "0";
-progress.style.height = "4px";
-progress.style.width = "0%";
-progress.style.zIndex = "999999";
-progress.style.background =
-    "linear-gradient(to right,#ff5fa8,#ff8fc8)";
-
-document.body.appendChild(progress);
-
-window.addEventListener("scroll", () => {
-
-    const scrollTop =
-        document.documentElement.scrollTop;
-
-    const height =
-        document.documentElement.scrollHeight -
-        document.documentElement.clientHeight;
-
-    progress.style.width =
-        (scrollTop / height) * 100 + "%";
+    clearEndingTimers();
 
 });
 
-// ---------------------------
-// Footer
-// ---------------------------
-
-const footer =
-    document.querySelector("footer");
-
-footer.innerHTML = `
-
-Made with all my heart ❤️<br>
-
-Thank you for being you.<br><br>
-
-Love,<br>
-
-Tahmid 💖
-
-`;
-
-// ---------------------------
-// Console Easter Egg
-// ---------------------------
-
-console.clear();
-
-console.log(`
-
-███████╗ ██████╗ ██████╗ 
-██╔════╝██╔═══██╗██╔══██╗
-█████╗  ██║   ██║██████╔╝
-██╔══╝  ██║   ██║██╔══██╗
-██║     ╚██████╔╝██║  ██║
-╚═╝      ╚═════╝ ╚═╝  ╚═╝
-
-        💖 FOR NILA 💖
-
-If you're reading this...
-
-I hope this website made you smile.
-
-❤️
-
-`);g
+console.log("✅ Part 5B Loaded");
