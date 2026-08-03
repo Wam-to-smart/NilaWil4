@@ -672,7 +672,8 @@ footer{
 .ending-sun,
 .ending-horizon,
 .ending-water,
-.ending-waves{
+.ending-waves,
+.ending-shooting-stars{
 
     position:absolute;
 
@@ -689,6 +690,83 @@ footer{
     background:linear-gradient(180deg, #ffdce8 0%, #ffab87 28%, #ffc164 56%, #ff8d62 100%);
 
     animation:skyDrift 12s ease-in-out infinite alternate;
+
+}
+
+.ending-shooting-stars{
+
+    position:absolute;
+
+    inset:0;
+
+    z-index:1;
+
+    pointer-events:none;
+
+    overflow:hidden;
+
+}
+
+.ending-shooting-stars span{
+
+    position:absolute;
+
+    top:20%;
+
+    left:-10%;
+
+    width:120px;
+
+    height:2px;
+
+    background:linear-gradient(90deg, rgba(255,255,255,0), rgba(255,255,255,.95));
+
+    border-radius:999px;
+
+    opacity:0;
+
+    transform:rotate(-20deg);
+
+    animation:shootingStar 7s ease-in-out infinite;
+
+}
+
+.ending-shooting-stars span::before{
+
+    content:"";
+
+    position:absolute;
+
+    right:0;
+
+    top:50%;
+
+    width:14px;
+    height:14px;
+
+    border-radius:50%;
+
+    background:white;
+
+    transform:translateY(-50%);
+
+    box-shadow:0 0 22px rgba(255,255,255,.85);
+
+}
+
+.ending-shooting-stars span:nth-child(2){
+
+    top:38%;
+
+    animation-delay:2.4s;
+
+}
+
+.ending-shooting-stars span:nth-child(3){
+
+    top:56%;
+
+    animation-delay:4.8s;
 
 }
 
@@ -1171,6 +1249,40 @@ footer{
    to{
 
        transform:translateX(8%) scaleX(1.04);
+
+   }
+
+}
+
+@keyframes shootingStar{
+
+   0%{
+
+       opacity:0;
+
+       transform:translate3d(-20vw, 0, 0) rotate(-20deg);
+
+   }
+
+   8%{
+
+       opacity:1;
+
+   }
+
+   30%{
+
+       opacity:1;
+
+       transform:translate3d(120vw, 28vh, 0) rotate(-20deg);
+
+   }
+
+   100%{
+
+       opacity:0;
+
+       transform:translate3d(140vw, 32vh, 0) rotate(-20deg);
 
    }
 
