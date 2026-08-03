@@ -151,8 +151,6 @@ surpriseButton.addEventListener("click", () => {
 
 const heartContainer = document.getElementById("hearts");
 const endingSection = document.getElementById("ending");
-const endingStarsContainer = document.getElementById("endingStars");
-const endingSparklesContainer = document.getElementById("endingSparkles");
 const endingMessageLines = Array.from(document.querySelectorAll(".ending-line"));
 const endingSignature = document.querySelector(".ending-signature");
 const nav = document.querySelector("nav");
@@ -177,8 +175,6 @@ function ensureMusicPlaying() {
 function createFloatingIcon() {
 
     if (body.classList.contains("ending-active")) {
-
-        createEndingSparkle();
 
         return;
 
@@ -223,33 +219,6 @@ function createFloatingIcon() {
 
 }
 
-function createEndingSparkle() {
-
-    const sparkle = document.createElement("div");
-
-    sparkle.className = "ending-sparkle";
-
-    sparkle.style.left = Math.random() * 100 + "%";
-    sparkle.style.top = Math.random() * 100 + "%";
-    sparkle.style.setProperty("--drift-x", `${(Math.random() - 0.5) * 140}px`);
-    sparkle.style.setProperty("--drift-y", `${(Math.random() - 0.5) * 140}px`);
-
-    endingSparklesContainer.appendChild(sparkle);
-
-    requestAnimationFrame(() => {
-
-        sparkle.classList.add("is-visible");
-
-    });
-
-    setTimeout(() => {
-
-        sparkle.remove();
-
-    }, 2600);
-
-}
-
 function createEndingBurst() {
 
     const messageShell = document.querySelector(".ending-message-shell");
@@ -265,7 +234,7 @@ function createEndingBurst() {
         const particle = document.createElement("div");
 
         particle.className = "ending-particle";
-        particle.innerHTML = ["♡", "💗", "💖", "💝"][i % 4];
+        particle.innerHTML = ["♡", "🌅", "💖", "✨"][i % 4];
 
         const angle = (i / particleCount) * Math.PI * 2;
         const radius = 65 + Math.random() * 90;
@@ -279,13 +248,13 @@ function createEndingBurst() {
         particle.style.fontSize = `${0.9 + Math.random() * 0.6}rem`;
         particle.style.animationDelay = `${Math.random() * 0.15}s`;
 
-        endingSparklesContainer.appendChild(particle);
+        endingSection.appendChild(particle);
 
     }
 
     setTimeout(() => {
 
-        endingSparklesContainer.querySelectorAll(".ending-particle").forEach((particle) => particle.remove());
+        endingSection.querySelectorAll(".ending-particle").forEach((particle) => particle.remove());
 
     }, 3000);
 
@@ -298,8 +267,6 @@ function clearEndingSequence() {
     endingSequenceTimers = [];
 
     endingSignature.classList.remove("is-visible");
-
-    endingSparklesContainer.innerHTML = "";
 
 }
 
@@ -320,7 +287,6 @@ function setEndingState(active) {
     ensureMusicPlaying();
 
     endingSignature.classList.remove("is-visible");
-    endingSparklesContainer.innerHTML = "";
 
     endingMessageLines.forEach((line, index) => {
 
@@ -369,21 +335,6 @@ for (let i = 0; i < 220; i++) {
         Math.random();
 
     starContainer.appendChild(star);
-
-}
-
-for (let i = 0; i < 180; i++) {
-
-    const star = document.createElement("div");
-
-    star.classList.add("ending-star");
-
-    star.style.left = Math.random() * 100 + "%";
-    star.style.top = Math.random() * 100 + "%";
-    star.style.animationDelay = Math.random() * 3 + "s";
-    star.style.opacity = 0.2 + Math.random() * 0.8;
-
-    endingStarsContainer.appendChild(star);
 
 }
 
