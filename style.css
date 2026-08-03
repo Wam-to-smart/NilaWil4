@@ -18,10 +18,10 @@ body{
 
     background:linear-gradient(
         180deg,
-        #ffd8ea 0%,
-        #ffc0dc 25%,
-        #ffe5f2 55%,
-        #fff6fb 100%
+        #ffe6f6 0%,
+        #ff9acb 25%,
+        #ff5fa8 55%,
+        #fff0f8 100%
     );
 
     color:#5c2a46;
@@ -771,7 +771,8 @@ footer{
 
     height:32%;
 
-    background:linear-gradient(180deg, rgba(112,34,78,.18), rgba(31,13,49,.74));
+    /* softened pink water so ending keeps a warm look instead of a night-sky */
+    background:linear-gradient(180deg, rgba(255,175,200,.18), rgba(255,110,170,.74));
 
 }
 
@@ -1019,7 +1020,8 @@ footer{
 
     overflow:hidden;
 
-    z-index:0;
+    /* sit behind all content (texts, images, UI) */
+    z-index:-1;
 
 }
 
@@ -1046,6 +1048,25 @@ footer{
     inset:0;
 
     pointer-events:none;
+
+    z-index:-2;
+
+    opacity:0;
+
+    visibility:hidden;
+
+    transition:opacity .6s ease, visibility .6s ease;
+
+}
+
+/* show stars only during ending or when ending-active is set on body */
+body.ending-active #stars,
+.ending-section.is-active ~ #stars,
+.ending-section.is-active #stars{
+
+    opacity:1;
+
+    visibility:visible;
 
     z-index:-1;
 
