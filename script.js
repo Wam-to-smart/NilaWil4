@@ -1,18 +1,23 @@
+/* ==========================================
+        script.js (Part 1)
+        For Nila 💖
+========================================== */
 
-
-// ----------------------
-// Loading Screen
-// ----------------------
+// ---------------------------
+// Loader
+// ---------------------------
 
 window.addEventListener("load", () => {
 
+    const loader = document.getElementById("loader");
+
     setTimeout(() => {
 
-        document.getElementById("loader").style.opacity = "0";
+        loader.style.opacity = "0";
 
         setTimeout(() => {
 
-            document.getElementById("loader").style.display = "none";
+            loader.style.display = "none";
 
         }, 1000);
 
@@ -20,9 +25,63 @@ window.addEventListener("load", () => {
 
 });
 
-// ----------------------
+// ---------------------------
+// Elements
+// ---------------------------
+
+const music = document.getElementById("music");
+
+const musicToggle = document.getElementById("musicToggle");
+
+const openButton = document.getElementById("openButton");
+
+const typedText = document.getElementById("typedText");
+
+const counter = document.getElementById("daysCounter");
+
+// ---------------------------
+// Music
+// ---------------------------
+
+music.volume = 0.35;
+
+let musicStarted = false;
+
+function startMusic() {
+
+    if (musicStarted) return;
+
+    music.play().catch(() => {});
+
+    musicStarted = true;
+
+    musicToggle.innerHTML = "🔊";
+
+}
+
+musicToggle.addEventListener("click", () => {
+
+    if (music.paused) {
+
+        music.play().catch(() => {});
+
+        musicToggle.innerHTML = "🔊";
+
+    }
+
+    else {
+
+        music.pause();
+
+        musicToggle.innerHTML = "🔇";
+
+    }
+
+});
+
+// ---------------------------
 // Letter
-// ----------------------
+// ---------------------------
 
 const letter = `Dear Nila,
 
@@ -34,7 +93,7 @@ Your smile, your kindness, your laugh, and even the smallest things about you ha
 
 Every conversation with you is something I look forward to.
 
-Thank you for being patient with me, for making me smile, and for simply being yourself.
+Thank you for always being yourself.
 
 Pink will always remind me of you.
 
@@ -48,30 +107,31 @@ This website is only a tiny reminder of how thankful I am that I met you.
 
 Thank you for being you.
 
-❤️`;
+Love,
 
-let index = 0;
-let started = false;
+Tahmid ❤️`;
+
+let currentCharacter = 0;
+
+let typingStarted = false;
 
 function typeWriter() {
 
-    if (index < letter.length) {
+    if (currentCharacter >= letter.length)
+        return;
 
-        document.getElementById("typedText").textContent += letter.charAt(index);
+    typedText.textContent +=
+        letter.charAt(currentCharacter);
 
-        index++;
+    currentCharacter++;
 
-        setTimeout(typeWriter, 32);
-
-    }
+    setTimeout(typeWriter, 32);
 
 }
 
-// ----------------------
+// ---------------------------
 // Open Button
-// ----------------------
-
-const openButton = document.getElementById("openButton");
+// ---------------------------
 
 openButton.addEventListener("click", () => {
 
@@ -81,96 +141,93 @@ openButton.addEventListener("click", () => {
 
     });
 
-    if (!started) {
+    startMusic();
 
-        started = true;
+    if (!typingStarted) {
+
+        typingStarted = true;
 
         typeWriter();
-
-        const music = document.getElementById("music");
-
-        music.volume = 0.35;
-
-        music.play().catch(() => {});
 
     }
 
 });
 
-// ----------------------
-// Days Since Meeting
-// ----------------------
+// ---------------------------
+// Days Counter
+// ---------------------------
 
-const startDate = new Date("2025-10-26T00:00:00");
+const startDate =
+    new Date("2025-10-26T00:00:00");
 
 function updateCounter() {
 
     const now = new Date();
 
-    const difference = now - startDate;
+    const difference =
+        now - startDate;
 
-    const totalDays = Math.floor(
-        difference / (1000 * 60 * 60 * 24)
-    );
+    const totalDays =
+        Math.floor(
+            difference /
+            (1000 * 60 * 60 * 24)
+        );
 
-    document.getElementById("daysCounter").textContent =
-        totalDays + " Days";
+    const totalHours =
+        Math.floor(
+            difference /
+            (1000 * 60 * 60)
+        );
+
+    const totalMinutes =
+        Math.floor(
+            difference /
+            (1000 * 60)
+        );
+
+    const totalSeconds =
+        Math.floor(
+            difference /
+            1000
+        );
+
+    counter.innerHTML = `
+        ${totalDays} Days
+        <br>
+        <span style="font-size:20px;font-weight:400;">
+            ${totalHours.toLocaleString()} Hours
+            <br>
+            ${totalMinutes.toLocaleString()} Minutes
+            <br>
+            ${totalSeconds.toLocaleString()} Seconds
+        </span>
+    `;
 
 }
 
 updateCounter();
 
 setInterval(updateCounter, 1000);
-
-// ----------------------
-// Surprise Button
-// ----------------------
-
-const surpriseButton = document.getElementById("surpriseButton");
-
-surpriseButton.addEventListener("click", () => {
-
-    const message = document.getElementById("secretMessage");
-
-    message.style.display = "block";
-
-    message.scrollIntoView({
-
-        behavior: "smooth"
-
-    });
-
-});
-/* =====================================
+/* ==========================================
         script.js (Part 2)
-===================================== */
+        For Nila 💖
+========================================== */
 
-// ----------------------
+// ---------------------------
 // Floating Hearts & Hamsters
-// ----------------------
+// ---------------------------
 
 const heartContainer = document.getElementById("hearts");
-const endingSection = document.getElementById("ending");
-const endingMessageLines = Array.from(document.querySelectorAll(".ending-line"));
-const endingSignature = document.querySelector(".ending-signature");
-const nav = document.querySelector("nav");
-const music = document.getElementById("music");
-const body = document.body;
-let endingSequenceTimers = [];
 
-function ensureMusicPlaying() {
-
-    if (!music) return;
-
-    music.volume = 0.35;
-
-    if (music.paused) {
-
-        music.play().catch(() => {});
-
-    }
-
-}
+const icons = [
+    "💖",
+    "💕",
+    "💗",
+    "💝",
+    "✨",
+    "🌸",
+    "🐹"
+];
 
 function createFloatingIcon() {
 
@@ -184,16 +241,6 @@ function createFloatingIcon() {
 
     icon.classList.add("heart");
 
-    const icons = [
-        "💖",
-        "💕",
-        "💗",
-        "💝",
-        "🌸",
-        "✨",
-        "🐹"
-    ];
-
     icon.innerHTML =
         icons[Math.floor(Math.random() * icons.length)];
 
@@ -201,13 +248,13 @@ function createFloatingIcon() {
         Math.random() * 100 + "vw";
 
     icon.style.fontSize =
-        (20 + Math.random() * 24) + "px";
+        (18 + Math.random() * 22) + "px";
 
     icon.style.animationDuration =
         (5 + Math.random() * 5) + "s";
 
     icon.style.opacity =
-        0.5 + Math.random() * 0.5;
+        0.45 + Math.random() * 0.5;
 
     heartContainer.appendChild(icon);
 
@@ -219,104 +266,15 @@ function createFloatingIcon() {
 
 }
 
-function createEndingBurst() {
+setInterval(createFloatingIcon, 220);
 
-    const messageShell = document.querySelector(".ending-message-shell");
-    const sectionRect = endingSection.getBoundingClientRect();
-    const shellRect = messageShell.getBoundingClientRect();
+// ---------------------------
+// Stars
+// ---------------------------
 
-    const centerX = shellRect.left + shellRect.width / 2 - sectionRect.left;
-    const centerY = shellRect.top + shellRect.height / 2 - sectionRect.top;
-    const particleCount = 24;
+const stars = document.getElementById("stars");
 
-    for (let i = 0; i < particleCount; i++) {
-
-        const particle = document.createElement("div");
-
-        particle.className = "ending-particle";
-        particle.innerHTML = ["♡", "🌅", "💖", "✨"][i % 4];
-
-        const angle = (i / particleCount) * Math.PI * 2;
-        const radius = 65 + Math.random() * 90;
-        const driftX = Math.cos(angle) * radius;
-        const driftY = Math.sin(angle) * radius;
-
-        particle.style.left = `${centerX}px`;
-        particle.style.top = `${centerY}px`;
-        particle.style.setProperty("--drift-x", `${driftX}px`);
-        particle.style.setProperty("--drift-y", `${driftY}px`);
-        particle.style.fontSize = `${0.9 + Math.random() * 0.6}rem`;
-        particle.style.animationDelay = `${Math.random() * 0.15}s`;
-
-        endingSection.appendChild(particle);
-
-    }
-
-    setTimeout(() => {
-
-        endingSection.querySelectorAll(".ending-particle").forEach((particle) => particle.remove());
-
-    }, 3000);
-
-}
-
-function clearEndingSequence() {
-
-    endingSequenceTimers.forEach((timer) => clearTimeout(timer));
-
-    endingSequenceTimers = [];
-
-    endingSignature.classList.remove("is-visible");
-
-}
-
-function setEndingState(active) {
-
-    body.classList.toggle("ending-active", active);
-    endingSection.classList.toggle("is-active", active);
-    nav.classList.toggle("is-hidden", active);
-
-    if (!active) {
-
-        clearEndingSequence();
-
-        return;
-
-    }
-
-    ensureMusicPlaying();
-
-    endingSignature.classList.remove("is-visible");
-
-    endingMessageLines.forEach((line, index) => {
-
-        line.style.transitionDelay = `${0.1 + index * 0.16}s`;
-
-    });
-
-    endingSequenceTimers.push(setTimeout(() => {
-
-        createEndingBurst();
-
-    }, 2500));
-
-    endingSequenceTimers.push(setTimeout(() => {
-
-        endingSignature.classList.add("is-visible");
-
-    }, 4600));
-
-}
-
-setInterval(createFloatingIcon, 250);
-
-// ----------------------
-// Twinkling Stars
-// ----------------------
-
-const starContainer = document.getElementById("stars");
-
-for (let i = 0; i < 220; i++) {
+for (let i = 0; i < 180; i++) {
 
     const star = document.createElement("div");
 
@@ -334,7 +292,7 @@ for (let i = 0; i < 220; i++) {
     star.style.opacity =
         Math.random();
 
-    starContainer.appendChild(star);
+    stars.appendChild(star);
 
 }
 
@@ -362,119 +320,256 @@ const endingObserver = new IntersectionObserver((entries) => {
 
 endingObserver.observe(endingSection);
 
-// ----------------------
+// ---------------------------
 // Cursor Glow
-// ----------------------
+// ---------------------------
 
-const glow = document.createElement("div");
+const cursorGlow = document.createElement("div");
 
-glow.style.position = "fixed";
-glow.style.width = "18px";
-glow.style.height = "18px";
-glow.style.borderRadius = "50%";
-glow.style.background = "#ff66b3";
-glow.style.pointerEvents = "none";
-glow.style.zIndex = "99999";
-glow.style.opacity = ".65";
-glow.style.filter = "blur(8px)";
-glow.style.transition = "transform .05s linear";
+cursorGlow.style.position = "fixed";
+cursorGlow.style.width = "18px";
+cursorGlow.style.height = "18px";
+cursorGlow.style.borderRadius = "50%";
+cursorGlow.style.background = "#ff5fa8";
+cursorGlow.style.filter = "blur(10px)";
+cursorGlow.style.pointerEvents = "none";
+cursorGlow.style.zIndex = "999999";
+cursorGlow.style.opacity = ".75";
 
-document.body.appendChild(glow);
+document.body.appendChild(cursorGlow);
 
-document.addEventListener("mousemove", (e) => {
+document.addEventListener("mousemove", e => {
 
-    glow.style.left = e.clientX - 9 + "px";
-    glow.style.top = e.clientY - 9 + "px";
+    cursorGlow.style.left =
+        (e.clientX - 9) + "px";
+
+    cursorGlow.style.top =
+        (e.clientY - 9) + "px";
 
 });
 
-// ----------------------
-// Fade Sections In
-// ----------------------
+// ---------------------------
+// Reveal Sections
+// ---------------------------
 
-const sections = document.querySelectorAll(".glass");
+const sections =
+    document.querySelectorAll(".glass");
 
-const observer = new IntersectionObserver((entries) => {
+const observer =
+    new IntersectionObserver(entries => {
 
-    entries.forEach(entry => {
+        entries.forEach(entry => {
 
-        if (entry.isIntersecting) {
+            if (entry.isIntersecting) {
 
-            entry.target.style.opacity = "1";
-            entry.target.style.transform = "translateY(0px)";
+                entry.target.style.opacity = "1";
 
-        }
+                entry.target.style.transform =
+                    "translateY(0px)";
+
+            }
+
+        });
+
+    }, {
+
+        threshold: 0.15
 
     });
-
-}, {
-
-    threshold: 0.15
-
-});
 
 sections.forEach(section => {
 
     section.style.opacity = "0";
-    section.style.transform = "translateY(60px)";
-    section.style.transition = "1s";
+
+    section.style.transform =
+        "translateY(70px)";
+
+    section.style.transition =
+        "all 1s ease";
 
     observer.observe(section);
 
 });
 
-// ----------------------
+// ---------------------------
+// Surprise Message
+// ---------------------------
+
+const surpriseButton =
+    document.getElementById("surpriseButton");
+
+const secretMessage =
+    document.getElementById("secretMessage");
+
+if (surpriseButton && secretMessage) {
+
+    surpriseButton.addEventListener("click", () => {
+
+        secretMessage.style.display = "block";
+
+        secretMessage.animate(
+
+            [
+
+                {
+                    opacity: 0,
+                    transform: "translateY(30px)"
+                },
+
+                {
+                    opacity: 1,
+                    transform: "translateY(0px)"
+                }
+
+            ],
+
+            {
+
+                duration: 900,
+                fill: "forwards"
+
+            }
+
+        );
+
+    });
+
+}
+
+// ---------------------------
 // Hero Button Pulse
-// ----------------------
+// ---------------------------
 
 setInterval(() => {
 
-    const btn = document.getElementById("openButton");
+    openButton.animate(
 
-    btn.animate([
+        [
+
+            {
+                transform: "scale(1)"
+            },
+
+            {
+                transform: "scale(1.08)"
+            },
+
+            {
+                transform: "scale(1)"
+            }
+
+        ],
+
         {
-            transform: "scale(1)"
-        },
-        {
-            transform: "scale(1.08)"
-        },
-        {
-            transform: "scale(1)"
+
+            duration: 1400
+
         }
-    ], {
-        duration: 1500
-    });
 
-}, 3000);
+    );
 
-// ----------------------
-// Footer Year
-// ----------------------
+}, 3500);
 
-const footer = document.querySelector("footer");
+// ---------------------------
+// Navbar Fade
+// ---------------------------
 
-footer.innerHTML =
-`
-Made with ❤️ especially for Nilitoes<br>
-By TaHMID<br><br>
-${new Date().getFullYear()}
+const navbar =
+    document.querySelector("nav");
+
+window.addEventListener("scroll", () => {
+
+    if (window.scrollY > 150) {
+
+        navbar.style.background =
+            "rgba(255,255,255,.85)";
+
+        navbar.style.backdropFilter =
+            "blur(18px)";
+
+    }
+
+    else {
+
+        navbar.style.background =
+            "rgba(255,255,255,.28)";
+
+    }
+
+});
+
+// ---------------------------
+// Scroll Progress Bar
+// ---------------------------
+
+const progress =
+    document.createElement("div");
+
+progress.style.position = "fixed";
+progress.style.top = "0";
+progress.style.left = "0";
+progress.style.height = "4px";
+progress.style.width = "0%";
+progress.style.zIndex = "999999";
+progress.style.background =
+    "linear-gradient(to right,#ff5fa8,#ff8fc8)";
+
+document.body.appendChild(progress);
+
+window.addEventListener("scroll", () => {
+
+    const scrollTop =
+        document.documentElement.scrollTop;
+
+    const height =
+        document.documentElement.scrollHeight -
+        document.documentElement.clientHeight;
+
+    progress.style.width =
+        (scrollTop / height) * 100 + "%";
+
+});
+
+// ---------------------------
+// Footer
+// ---------------------------
+
+const footer =
+    document.querySelector("footer");
+
+footer.innerHTML = `
+
+Made with all my heart ❤️<br>
+
+Thank you for being you.<br><br>
+
+Love,<br>
+
+Tahmid 💖
+
 `;
 
-// ----------------------
+// ---------------------------
 // Console Easter Egg
-// ----------------------
+// ---------------------------
+
+console.clear();
 
 console.log(`
-========================================
+
+███████╗ ██████╗ ██████╗ 
+██╔════╝██╔═══██╗██╔══██╗
+█████╗  ██║   ██║██████╔╝
+██╔══╝  ██║   ██║██╔══██╗
+██║     ╚██████╔╝██║  ██║
+╚═╝      ╚═════╝ ╚═╝  ╚═╝
 
         💖 FOR NILA 💖
 
 If you're reading this...
 
-You mean more to me than
-this code could ever express.
+I hope this website made you smile.
 
-🐹❤️
+❤️
 
-========================================
-`);
+`);g

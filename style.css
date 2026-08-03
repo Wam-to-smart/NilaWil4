@@ -51,7 +51,43 @@ body.ending-active footer{
     transition:filter 1.2s ease;
 
 }
+#musicToggle{
 
+    position:fixed;
+
+    bottom:25px;
+
+    right:25px;
+
+    width:60px;
+
+    height:60px;
+
+    border:none;
+
+    border-radius:50%;
+
+    background:rgba(255,255,255,.85);
+
+    backdrop-filter:blur(10px);
+
+    font-size:24px;
+
+    cursor:pointer;
+
+    z-index:9999;
+
+    box-shadow:0 10px 25px rgba(0,0,0,.15);
+
+    transition:.3s;
+
+}
+
+#musicToggle:hover{
+
+    transform:scale(1.08);
+
+}
 /* Scrollbar */
 
 ::-webkit-scrollbar{
