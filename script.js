@@ -451,24 +451,26 @@ window.addEventListener("scroll", () => {
 });
 
 document.querySelectorAll('nav a').forEach(link => {
-
+    
     link.addEventListener("click", e => {
+        
+        const href = link.getAttribute("href");
+        if (!href) return;
+        // Only intercept in-page anchor links (hash links). Allow normal navigation for other links like "nila.html"
+        if (href.startsWith('#')) {
+            e.preventDefault();
 
-        e.preventDefault();
+            const target = document.querySelector(href);
+            if (!target) return;
 
-        const target =
-            document.querySelector(link.getAttribute("href"));
+            target.scrollIntoView({
+                behavior: "smooth"
+            });
+        }
 
-        if (!target) return;
-
-        target.scrollIntoView({
-
-            behavior: "smooth"
-
-        });
-
+        // Otherwise let the browser handle navigation (e.g., to another page)
     });
-
+    
 });
 
 const footer = document.querySelector("footer");
