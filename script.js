@@ -1117,4 +1117,19 @@ window.addEventListener("beforeunload", () => {
 
 });
 
-console.log("✅ Part 5B Loaded");
+function celebrate() {
+    alert("You just made me the happiest person alive. ❤️");
+}
+
+const noBtn = document.getElementById("noBtn");
+
+if (noBtn) {
+    noBtn.addEventListener("mouseover", () => {
+        const x = Math.random() * (window.innerWidth - 150);
+        const y = Math.random() * (window.innerHeight - 80);
+
+        noBtn.style.position = "fixed";
+        noBtn.style.left = `${x}px`;
+        noBtn.style.top = `${y}px`;
+    });
+}

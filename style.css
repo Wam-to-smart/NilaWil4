@@ -1389,4 +1389,42 @@ footer{
 
 }
 
+
+}
+/* ===========================
+        Proposal Buttons
+=========================== */
+
+.yes-btn,
+.no-btn{
+    padding:16px 42px;
+    border:none;
+    border-radius:999px;
+    font-family:'Poppins',sans-serif;
+    font-size:1.1rem;
+    font-weight:600;
+    cursor:pointer;
+    transition:.35s;
+}
+
+.yes-btn{
+    background:linear-gradient(135deg,#ff5c8d,#ff2f8e);
+    color:white;
+    box-shadow:0 15px 35px rgba(255,75,159,.35);
+}
+
+.yes-btn:hover{
+    transform:translateY(-5px) scale(1.05);
+    box-shadow:0 20px 45px rgba(255,75,159,.45);
+}
+
+.no-btn{
+    background:rgba(255,255,255,.45);
+    backdrop-filter:blur(12px);
+    color:#a41d66;
+    border:2px solid rgba(255,255,255,.6);
+}
+
+.no-btn:hover{
+    background:rgba(255,255,255,.7);
 }
