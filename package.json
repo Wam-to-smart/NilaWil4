@@ -1,0 +1,14 @@
+{
+  "name": "for-nila-website",
+  "version": "1.0.0",
+  "private": true,
+  "scripts": {
+    "start": "node server.js",
+    "dev": "node server.js",
+    "vercel-build": "node -e \"console.log('Static site build complete')\""
+  },
+  "dependencies": {
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2"
+  }
+}

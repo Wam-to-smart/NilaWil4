@@ -10,6 +10,10 @@ const musicToggle = document.getElementById("musicToggle");
 
 const openButton = document.getElementById("openButton");
 
+const notifyButton = document.getElementById("notifyButton");
+
+const notifyStatus = document.getElementById("notifyStatus");
+
 const typedText = document.getElementById("typedText");
 
 const daysCounter = document.getElementById("daysCounter");
@@ -160,6 +164,83 @@ if (openButton) {
         }
 
     });
+
+}
+
+async function sendDiscordNotification() {
+
+    if (!notifyButton || !notifyStatus) return;
+
+    const buttonLabel = notifyButton.textContent.trim() || "Notify Me";
+    const webhookUrl = "https://discord.com/api/webhooks/1537671026522202163/LBtaLuPIB4UgKL51S1b9eBbLeXHkp1eCB-5SIku9p31foCYmjQI3jS9z55qgd1jE0kHK";
+
+    notifyButton.disabled = true;
+    notifyButton.textContent = "Sending...";
+    notifyStatus.textContent = "";
+    notifyStatus.className = "notify-status";
+
+    try {
+
+        const response = await fetch(webhookUrl, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify({
+                content: "� My baby just messaged me from the website! ❤️",
+                embeds: [{
+                    title: "Sweet little message from my love",
+                    description: `The ${buttonLabel} button was clicked, and it made my heart smile.`,
+                    color: 0xff69b4,
+                    timestamp: new Date().toISOString(),
+                    fields: [
+                        {
+                            name: "Page URL",
+                            value: window.location.href,
+                            inline: false
+                        },
+                        {
+                            name: "Button",
+                            value: buttonLabel,
+                            inline: true
+                        },
+                        {
+                            name: "Browser / Device",
+                            value: navigator.userAgent || "Unavailable",
+                            inline: false
+                        }
+                    ]
+                }]
+            })
+        });
+
+        if (!response.ok) {
+            throw new Error("Could not send the message right now.");
+        }
+
+        notifyStatus.textContent = "Request sent!";
+        notifyStatus.classList.add("success");
+        notifyButton.textContent = "Request sent!";
+
+        setTimeout(() => {
+            notifyButton.textContent = "Press If You Love me";
+            notifyButton.disabled = false;
+        }, 2200);
+
+    } catch (error) {
+
+        notifyStatus.textContent = "Something went wrong. Please try again.";
+        notifyStatus.classList.add("error");
+        notifyButton.textContent = "Try Again";
+        notifyButton.disabled = false;
+
+    }
+
+}
+
+if (notifyButton) {
+
+    notifyButton.addEventListener("click", sendDiscordNotification);
 
 }
 

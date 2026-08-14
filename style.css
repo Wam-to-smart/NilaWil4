@@ -83,6 +83,50 @@
     color: #b98a99;
     font-style: italic;
 }
+
+.notify-button {
+    width: 100%;
+    margin-top: 18px;
+    padding: 14px 22px;
+    border: none;
+    border-radius: 999px;
+    background: linear-gradient(135deg, #ff4b9f, #ff7bb7);
+    color: #ffffff;
+    font-family: 'Poppins', sans-serif;
+    font-size: 16px;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    cursor: pointer;
+    box-shadow: 0 12px 28px rgba(255, 75, 159, 0.28);
+    transition: transform 0.25s ease, box-shadow 0.25s ease, opacity 0.25s ease;
+}
+
+.notify-button:hover {
+    transform: translateY(-2px) scale(1.01);
+    box-shadow: 0 16px 30px rgba(255, 75, 159, 0.34);
+}
+
+.notify-button:disabled {
+    opacity: 0.75;
+    cursor: wait;
+    transform: none;
+}
+
+.notify-status {
+    min-height: 20px;
+    margin-top: 12px;
+    font-size: 13px;
+    font-weight: 600;
+    color: #8d355d;
+}
+
+.notify-status.success {
+    color: #1d8f5f;
+}
+
+.notify-status.error {
+    color: #af264a;
+}
 html{
     scroll-behavior:smooth;
 }
