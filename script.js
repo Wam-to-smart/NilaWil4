@@ -1068,8 +1068,6 @@ function animateWater() {
 
 animateWater();
 
-
-
 window.addEventListener("scroll", () => {
 
     if (!endingSection) return;
@@ -1124,12 +1122,59 @@ function celebrate() {
 const noBtn = document.getElementById("noBtn");
 
 if (noBtn) {
+
     noBtn.addEventListener("mouseover", () => {
+
         const x = Math.random() * (window.innerWidth - 150);
+
         const y = Math.random() * (window.innerHeight - 80);
 
         noBtn.style.position = "fixed";
+
         noBtn.style.left = `${x}px`;
+
         noBtn.style.top = `${y}px`;
+
     });
+
 }
+
+function initEmergencyPopup() {
+
+    const overlay = document.getElementById('emergencyOverlay');
+
+    const closeBtn = document.getElementById('emergencyClose');
+
+    const timestampEl = document.getElementById('emergencyTimestamp');
+
+    if (overlay && timestampEl) {
+
+        timestampEl.textContent = `Written in this moment — Thursday, August 13, 11:29 PM`;
+
+        setTimeout(() => overlay.classList.add('active'), 300);
+
+    }
+
+    if (closeBtn && overlay) {
+
+        closeBtn.addEventListener('click', () => {
+
+            overlay.classList.remove('active');
+
+        });
+
+    }
+
+}
+
+if (document.readyState === 'loading') {
+
+    document.addEventListener('DOMContentLoaded', initEmergencyPopup);
+
+} else {
+
+    initEmergencyPopup();
+
+}
+
+console.log("✅ Part 5 Loaded");
