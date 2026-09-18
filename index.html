@@ -1,375 +1,399 @@
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>For Nila 💖</title>
-    <meta name="description" content="A heartfelt website dedicated to Nila, celebrating memories, appreciation, and the moments that made life brighter. ❤️">
-    <meta property="og:image" content="https://nilawil4.com/images/flower.png">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>For You 💜</title>
 
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
 
-    <link href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    body {
+      min-height: 100vh;
+      font-family: "Segoe UI", Arial, sans-serif;
+      background:
+        radial-gradient(circle at 20% 20%, #b784ff 0%, transparent 30%),
+        radial-gradient(circle at 80% 80%, #7d4bc7 0%, transparent 35%),
+        linear-gradient(135deg, #170b2b, #35145d, #541d7e);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      overflow: hidden;
+      color: white;
+    }
 
-    <link rel="stylesheet" href="style.css">
+    /* Background glow */
+    .glow {
+      position: absolute;
+      width: 450px;
+      height: 450px;
+      border-radius: 50%;
+      background: rgba(210, 165, 255, 0.16);
+      filter: blur(80px);
+      animation: breathe 5s ease-in-out infinite;
+    }
 
-    <meta property="og:title" content="For Nila 💖">
-    <meta property="og:description" content="A little website made with love, appreciation, and countless memories. ❤️">
-    <meta property="og:image" content="https://nilawil4.com/images/1.JPEG">
-    <meta property="og:url" content="https://nilawil4.com/">
-    <meta property="og:type" content="website">
-    <meta property="og:site_name" content="For Nila">
+    @keyframes breathe {
+      0%, 100% {
+        transform: scale(1);
+        opacity: 0.6;
+      }
 
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="For Nila 💖">
-    <meta name="twitter:description" content="A little website made with love, appreciation, and countless memories. ❤️">
-    <meta name="twitter:image" content="https://nilawil4.com/images/1.JPEG">
+      50% {
+        transform: scale(1.15);
+        opacity: 1;
+      }
+    }
 
-    <link rel="icon" href='data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><text y=".9em" font-size="90">🌸</text></svg>'>
+    /* Floating hearts */
+    .heart {
+      position: absolute;
+      bottom: -50px;
+      color: rgba(255, 210, 255, 0.25);
+      animation: floatUp linear infinite;
+      pointer-events: none;
+    }
+
+    .heart:nth-child(1) {
+      left: 8%;
+      font-size: 20px;
+      animation-duration: 11s;
+    }
+
+    .heart:nth-child(2) {
+      left: 22%;
+      font-size: 13px;
+      animation-duration: 8s;
+      animation-delay: 2s;
+    }
+
+    .heart:nth-child(3) {
+      left: 48%;
+      font-size: 25px;
+      animation-duration: 13s;
+      animation-delay: 1s;
+    }
+
+    .heart:nth-child(4) {
+      left: 72%;
+      font-size: 16px;
+      animation-duration: 9s;
+      animation-delay: 4s;
+    }
+
+    .heart:nth-child(5) {
+      left: 91%;
+      font-size: 22px;
+      animation-duration: 12s;
+      animation-delay: 3s;
+    }
+
+    @keyframes floatUp {
+      from {
+        transform: translateY(0) rotate(0deg);
+        opacity: 0;
+      }
+
+      15% {
+        opacity: 1;
+      }
+
+      to {
+        transform: translateY(-115vh) rotate(25deg);
+        opacity: 0;
+      }
+    }
+
+    /* Lock card */
+    .lock-card {
+      position: relative;
+      z-index: 5;
+      width: min(90%, 410px);
+      padding: 48px 38px 40px;
+
+      background: rgba(255, 255, 255, 0.09);
+      border: 1px solid rgba(255, 255, 255, 0.18);
+      border-radius: 28px;
+
+      backdrop-filter: blur(18px);
+      -webkit-backdrop-filter: blur(18px);
+
+      box-shadow:
+        0 25px 60px rgba(0, 0, 0, 0.3),
+        inset 0 1px 0 rgba(255, 255, 255, 0.12);
+
+      text-align: center;
+    }
+
+    .lock-icon {
+      width: 68px;
+      height: 68px;
+      margin: 0 auto 25px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+
+      background: rgba(255, 255, 255, 0.12);
+      border: 1px solid rgba(255, 255, 255, 0.18);
+
+      font-size: 28px;
+      box-shadow: 0 8px 25px rgba(15, 3, 30, 0.2);
+    }
+
+    .tiny-text {
+      color: #d9bfff;
+      font-size: 12px;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+
+    h1 {
+      font-family: Georgia, "Times New Roman", serif;
+      font-size: 34px;
+      font-weight: 500;
+      margin-bottom: 10px;
+    }
+
+    .subtitle {
+      color: rgba(255, 255, 255, 0.66);
+      font-size: 14px;
+      line-height: 1.6;
+      margin-bottom: 32px;
+    }
+
+    .question {
+      font-family: Georgia, "Times New Roman", serif;
+      font-style: italic;
+      color: #eadbff;
+      font-size: 17px;
+      margin-bottom: 12px;
+    }
+
+    .input-container {
+      position: relative;
+      margin-bottom: 14px;
+    }
+
+    input {
+      width: 100%;
+      height: 54px;
+      border: 1px solid rgba(255, 255, 255, 0.16);
+      border-radius: 15px;
+      outline: none;
+
+      background: rgba(13, 5, 25, 0.35);
+      color: white;
+
+      padding: 0 50px 0 18px;
+      font-size: 15px;
+      transition: 0.25s;
+    }
+
+    input::placeholder {
+      color: rgba(255, 255, 255, 0.35);
+    }
+
+    input:focus {
+      border-color: #c896ff;
+      box-shadow: 0 0 0 3px rgba(190, 130, 255, 0.12);
+    }
+
+    .mini-heart {
+      position: absolute;
+      right: 18px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #d8aaff;
+      font-size: 17px;
+    }
+
+    button {
+      width: 100%;
+      height: 54px;
+      border: none;
+      border-radius: 15px;
+
+      background: linear-gradient(135deg, #b47cff, #8c4bd1);
+      color: white;
+
+      font-size: 15px;
+      font-weight: 600;
+      letter-spacing: 0.3px;
+      cursor: pointer;
+
+      box-shadow: 0 10px 28px rgba(124, 61, 184, 0.4);
+      transition: 0.25s;
+    }
+
+    button:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 14px 35px rgba(124, 61, 184, 0.55);
+    }
+
+    button:active {
+      transform: translateY(0);
+    }
+
+    #message {
+      min-height: 22px;
+      margin-top: 17px;
+      font-size: 13px;
+      color: #ffb8db;
+    }
+
+    .footer {
+      margin-top: 24px;
+      color: rgba(255, 255, 255, 0.32);
+      font-size: 11px;
+      letter-spacing: 1px;
+    }
+
+    /* Shake if password is wrong */
+    .shake {
+      animation: shake 0.4s ease;
+    }
+
+    @keyframes shake {
+      0%, 100% {
+        transform: translateX(0);
+      }
+
+      25% {
+        transform: translateX(-8px);
+      }
+
+      50% {
+        transform: translateX(8px);
+      }
+
+      75% {
+        transform: translateX(-5px);
+      }
+    }
+
+    /* Unlock animation */
+    .unlocking {
+      animation: unlock 0.8s forwards;
+    }
+
+    @keyframes unlock {
+      to {
+        opacity: 0;
+        transform: scale(1.08);
+        filter: blur(10px);
+      }
+    }
+  </style>
 </head>
 
 <body>
-<div id="emergencyOverlay" class="emergency-overlay">
-    <div class="emergency-box">
-        <button id="emergencyClose" class="emergency-close" aria-label="Close">&times;</button>
-        <div class="emergency-icon">💔</div>
-        <p class="emergency-text">
-            Nila, I don't want us to end. I know times are tough, but never forget this monumental act of love. Let's figure this out — I'll always love you.
-        </p>
-        <p class="emergency-extra">
-            Every word on this site was real. Every photo, every reason, every late night I spent building this  that was me trying to show you something words alone couldn't. I'm not ready to let that go, and I don't think you are either. It's hard right now, we can talk about it. I'm here.
-        </p>
-        <button id="notifyButton" class="notify-button" type="button">Press If You Love me</button>
-        <div id="notifyStatus" class="notify-status" aria-live="polite"></div>
-        <p class="emergency-timestamp" id="emergencyTimestamp"></p>
-    </div>
-</div>
-<div id="loader">
-    <h1>For Nila 💖</h1>
-    <p>Loading something special...</p>
-</div>
+  <div class="glow"></div>
 
-<div id="hearts"></div>
+  <div class="heart">♡</div>
+  <div class="heart">♥</div>
+  <div class="heart">♡</div>
+  <div class="heart">♥</div>
+  <div class="heart">♡</div>
 
-<div id="stars"></div>
+  <div class="lock-card" id="lockCard">
 
-<audio id="music" loop>
-    <source src="nothing-on-you.mp3" type="audio/mpeg">
-</audio>
-
-<button id="musicToggle" title="Music">
-    🔊
-</button>
-
-<nav>
-
-    <div class="logo">
-        💖 Nila
+    <div class="lock-icon" id="lockIcon">
+      🔒
     </div>
 
-    <ul>
+    <div class="tiny-text">Something is waiting</div>
 
+    <h1>Just for you.</h1>
 
-    <a href="nila.html">Who Is Nila? 🌸</a> 
-    <a href="nilacally.html">Grinch GIF 🌸</a>
-
-    </ul>
-
-</nav>
-
-<section class="hero">
-
-    <div class="hero-content">
-
-        <h1>For Nila</h1>
-
-        <p>
-            Someone who makes ordinary moments unforgettable.
-        </p>
-
-        <button id="openButton">
-            Open My Heart ❤️
-        </button>
-
-    </div>
-
-    <div class="scroll">
-        ↓
-    </div>
-
-</section>
-
-<section id="letter" class="glass">
-
-    <h2>💌 A Letter To You</h2>
-
-    <p id="typedText"></p>
-
-</section>
-
-<section id="counter" class="glass">
-
-    <h2>🐰 Our Journey</h2>
-
-    <div id="daysCounter">
-        0 Days
-    </div>
-
-    <p>
-        Since October 26, 2025
+    <p class="subtitle">
+      There's a little something hidden behind this door.<br>
+      But you should know the answer. ♡
     </p>
 
-</section>
-
-<section id="gallery" class="glass">
-
-<h2>
-
-📸 My Pretty Girl
-
-</h2>
-
-<div class="gallery">
-
-<div class="photo">
-
-<img src="images/photo1.jpeg">
-
-<div class="caption">
-
-My favorite photo of you ❤️
-
-</div>
-</div>
-
-<div class="photo">
-
-<img src="images/photo3.jpeg">
-
-<div class="caption">
-
-You Make Everything Better
-
-</div>
-</div>
-
-<div class="photo">
-
-<img src="images/1.JPEG">
-
-<div class="caption">
-
-You're beautfiul smile brightens my day.
-
-</div>
-
-
-
-</div>
-
-<div class="photo">
-
-<img src="images/photo4.jpeg">
-
-<div class="caption">
-
-This girl desrves for all her dreams to come true💖
-</div>
-
-</div>
-
-
-</section>
-
-<section id="reasons" class="glass">
-
-<h2>
-
-💖 Reasons I Appreciate You
-
-</h2>
-
-<div class="cards">
-
-<div class="reason">
-
-<h3>
-
-😊
-
-</h3>
-
-<p>
-
-Your smile has a way of making every day brighter.
-
-</p>
-
-</div>
-
-<div class="reason">
-
-<h3>
-
-🌸
-
-</h3>
-
-<p>
-
-You're one of the kindest people I've ever met.
-
-</p>
-
-</div>
-
-<div class="reason">
-
-<h3>
-
-🐰
-
-</h3>
-
-<p>
-
-Every bunny reminds me of someone adorable...
-
-you.
-
-</p>
-
-</div>
-
-<div class="reason">
-
-<h3>
-
-💗
-
-</h3>
-
-<p>
-
-Pink will always remind me of you.
-
-</p>
-
-</div>
-
-<div class="reason">
-
-<h3>
-
-🔆
-
-</h3>
-
-<p>
-
-Your my sunshine
-</p>
-
-</div>
-
-<div class="reason">
-
-<h3>
-
-❤️
-
-</h3>
-
-<p>
-
-Simply because you're you.
-
-</p>
-
-</div>
-
-</div>
-
-</section>
-
-<section id="ending" class="ending-section" aria-label="Ending">
-
-    <div class="ending-sky"></div>
-    <div class="ending-sun"></div>
-    <div class="ending-horizon"></div>
-    <div class="ending-water"></div>
-    <div class="ending-waves">
-        <span></span>
-        <span></span>
-        <span></span>
-    </div>
-    <div class="ending-message-shell">
-        <div class="ending-message">
-            <div class="ending-line">how many words</div>
-            <div class="ending-line">I could ever write...</div>
-            <div class="ending-line ending-line--spacer"></div>
-            <div class="ending-line">they'll never truly</div>
-            <div class="ending-line">show how much</div>
-            <div class="ending-line">I appreciate you.</div>
-            <div class="ending-line ending-line--spacer"></div>
-            <div class="ending-line">Thank you</div>
-            <div class="ending-line">for being you.</div>
-            <div class="ending-line ending-line--spacer"></div>
-            <div class="ending-line ending-line--heart">❤️</div>
-        </div>
-
-        <div class="ending-signature">Love,<br>Tahmid ❤️</div>
+    <div class="question">
+      What's our name?
     </div>
 
-</section>
+    <div class="input-container">
+      <input
+        type="password"
+        id="password"
+        placeholder="type it here..."
+        autocomplete="off"
+      />
 
-<section class="glass surprise">
+      <span class="mini-heart">♡</span>
+    </div>
 
-<h2>
+    <button onclick="unlock()">
+      Unlock ♡
+    </button>
 
-One Last Thing...
+    <div id="message"></div>
 
-</h2>
+    <div class="footer">
+      MADE WITH A LITTLE LOVE
+    </div>
 
-<p>
-The sun still rises every day, 
+  </div>
 
-but nothing shines quite like you. 
-Now every sunrise only reminds me of 
-what I miss.
 
-Please come back.
-You're my sunshine
+  <script>
+    const correctPassword = "fuckuslut";
 
-❤️
+    function unlock() {
+      const input = document.getElementById("password");
+      const card = document.getElementById("lockCard");
+      const message = document.getElementById("message");
+      const lockIcon = document.getElementById("lockIcon");
 
-</p>
+      const enteredPassword = input.value.trim().toLowerCase();
 
-<button id="surpriseButton">
+      if (enteredPassword === correctPassword.toLowerCase()) {
 
-Click Me
+        lockIcon.textContent = "🔓";
+        message.style.color = "#d8b4ff";
+        message.textContent = "I knew you'd remember ♡";
 
-</button>
+        setTimeout(() => {
+          card.classList.add("unlocking");
+        }, 600);
 
-<div id="secretMessage">
+        setTimeout(() => {
+          // CHANGE THIS to the next page of the website
+          window.location.href = "home.html";
+        }, 1400);
 
-I hope every time you look back at this website,
+      } else {
 
-you smile.
+        message.textContent = "Hmm... that's not it ♡";
 
-Because you deserve every reason to.
+        card.classList.remove("shake");
 
-💖
+        // Forces animation to restart
+        void card.offsetWidth;
 
-</div>
+        card.classList.add("shake");
 
-</section>
+        input.value = "";
+        input.focus();
+      }
+    }
 
-<footer>
-
-Especially for Nilotoes By Tahmid
-
-</footer>
-
-<script src="script.js"></script>
+    // Allow pressing Enter
+    document
+      .getElementById("password")
+      .addEventListener("keydown", function(event) {
+        if (event.key === "Enter") {
+          unlock();
+        }
+      });
+  </script>
 
 </body>
 </html>

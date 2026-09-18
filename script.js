@@ -1203,7 +1203,6 @@ function celebrate() {
 const noBtn = document.getElementById("noBtn");
 
 if (noBtn) {
-
     noBtn.addEventListener("mouseover", () => {
 
         const x = Math.random() * (window.innerWidth - 150);
@@ -1259,3 +1258,4 @@ if (document.readyState === 'loading') {
 }
 
 console.log("✅ Part 5 Loaded");
+}
