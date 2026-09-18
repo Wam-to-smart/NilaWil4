@@ -1,399 +1,703 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>For You 💜</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
-  <style>
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
+<title>For You 💜</title>
 
-    body {
-      min-height: 100vh;
-      font-family: "Segoe UI", Arial, sans-serif;
-      background:
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    min-height: 100vh;
+    font-family: "Segoe UI", Arial, sans-serif;
+    background:
         radial-gradient(circle at 20% 20%, #b784ff 0%, transparent 30%),
         radial-gradient(circle at 80% 80%, #7d4bc7 0%, transparent 35%),
         linear-gradient(135deg, #170b2b, #35145d, #541d7e);
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      overflow: hidden;
-      color: white;
-    }
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+    color: white;
+}
 
-    /* Background glow */
-    .glow {
-      position: absolute;
-      width: 450px;
-      height: 450px;
-      border-radius: 50%;
-      background: rgba(210, 165, 255, 0.16);
-      filter: blur(80px);
-      animation: breathe 5s ease-in-out infinite;
-    }
+.glow {
+    position: absolute;
+    width: 450px;
+    height: 450px;
+    border-radius: 50%;
+    background: rgba(210,165,255,.16);
+    filter: blur(80px);
+    animation: breathe 5s ease-in-out infinite;
+}
 
-    @keyframes breathe {
-      0%, 100% {
+@keyframes breathe {
+    0%,100% {
         transform: scale(1);
-        opacity: 0.6;
-      }
+        opacity: .6;
+    }
 
-      50% {
+    50% {
         transform: scale(1.15);
         opacity: 1;
-      }
     }
+}
 
-    /* Floating hearts */
-    .heart {
-      position: absolute;
-      bottom: -50px;
-      color: rgba(255, 210, 255, 0.25);
-      animation: floatUp linear infinite;
-      pointer-events: none;
-    }
+.heart {
+    position: absolute;
+    bottom: -50px;
+    color: rgba(255,210,255,.25);
+    animation: floatUp linear infinite;
+    pointer-events: none;
+}
 
-    .heart:nth-child(1) {
-      left: 8%;
-      font-size: 20px;
-      animation-duration: 11s;
-    }
+.h1 { left: 8%; font-size:20px; animation-duration:11s; }
+.h2 { left:22%; font-size:13px; animation-duration:8s; animation-delay:2s; }
+.h3 { left:48%; font-size:25px; animation-duration:13s; animation-delay:1s; }
+.h4 { left:72%; font-size:16px; animation-duration:9s; animation-delay:4s; }
+.h5 { left:91%; font-size:22px; animation-duration:12s; animation-delay:3s; }
 
-    .heart:nth-child(2) {
-      left: 22%;
-      font-size: 13px;
-      animation-duration: 8s;
-      animation-delay: 2s;
-    }
-
-    .heart:nth-child(3) {
-      left: 48%;
-      font-size: 25px;
-      animation-duration: 13s;
-      animation-delay: 1s;
-    }
-
-    .heart:nth-child(4) {
-      left: 72%;
-      font-size: 16px;
-      animation-duration: 9s;
-      animation-delay: 4s;
-    }
-
-    .heart:nth-child(5) {
-      left: 91%;
-      font-size: 22px;
-      animation-duration: 12s;
-      animation-delay: 3s;
-    }
-
-    @keyframes floatUp {
-      from {
+@keyframes floatUp {
+    from {
         transform: translateY(0) rotate(0deg);
         opacity: 0;
-      }
+    }
 
-      15% {
+    15% {
         opacity: 1;
-      }
+    }
 
-      to {
+    to {
         transform: translateY(-115vh) rotate(25deg);
         opacity: 0;
-      }
     }
+}
 
-    /* Lock card */
-    .lock-card {
-      position: relative;
-      z-index: 5;
-      width: min(90%, 410px);
-      padding: 48px 38px 40px;
+.lock-card {
+    position: relative;
+    z-index: 5;
 
-      background: rgba(255, 255, 255, 0.09);
-      border: 1px solid rgba(255, 255, 255, 0.18);
-      border-radius: 28px;
+    width: min(90%,410px);
+    padding: 48px 38px 40px;
 
-      backdrop-filter: blur(18px);
-      -webkit-backdrop-filter: blur(18px);
+    background: rgba(255,255,255,.09);
+    border: 1px solid rgba(255,255,255,.18);
+    border-radius: 28px;
 
-      box-shadow:
-        0 25px 60px rgba(0, 0, 0, 0.3),
-        inset 0 1px 0 rgba(255, 255, 255, 0.12);
+    backdrop-filter: blur(18px);
+    -webkit-backdrop-filter: blur(18px);
 
-      text-align: center;
-    }
+    box-shadow:
+        0 25px 60px rgba(0,0,0,.3),
+        inset 0 1px 0 rgba(255,255,255,.12);
 
-    .lock-icon {
-      width: 68px;
-      height: 68px;
-      margin: 0 auto 25px;
-      border-radius: 50%;
-      display: grid;
-      place-items: center;
+    text-align: center;
+}
 
-      background: rgba(255, 255, 255, 0.12);
-      border: 1px solid rgba(255, 255, 255, 0.18);
+.lock-icon {
+    width: 68px;
+    height: 68px;
 
-      font-size: 28px;
-      box-shadow: 0 8px 25px rgba(15, 3, 30, 0.2);
-    }
+    margin: 0 auto 25px;
 
-    .tiny-text {
-      color: #d9bfff;
-      font-size: 12px;
-      letter-spacing: 3px;
-      text-transform: uppercase;
-      margin-bottom: 12px;
-    }
+    border-radius: 50%;
 
-    h1 {
-      font-family: Georgia, "Times New Roman", serif;
-      font-size: 34px;
-      font-weight: 500;
-      margin-bottom: 10px;
-    }
+    display: grid;
+    place-items: center;
 
-    .subtitle {
-      color: rgba(255, 255, 255, 0.66);
-      font-size: 14px;
-      line-height: 1.6;
-      margin-bottom: 32px;
-    }
+    background: rgba(255,255,255,.12);
+    border: 1px solid rgba(255,255,255,.18);
 
-    .question {
-      font-family: Georgia, "Times New Roman", serif;
-      font-style: italic;
-      color: #eadbff;
-      font-size: 17px;
-      margin-bottom: 12px;
-    }
+    font-size: 28px;
+}
 
-    .input-container {
-      position: relative;
-      margin-bottom: 14px;
-    }
+.tiny-text {
+    color: #d9bfff;
+    font-size: 12px;
+    letter-spacing: 3px;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+}
 
-    input {
-      width: 100%;
-      height: 54px;
-      border: 1px solid rgba(255, 255, 255, 0.16);
-      border-radius: 15px;
-      outline: none;
+h1 {
+    font-family: Georgia, serif;
+    font-size: 34px;
+    font-weight: 500;
+    margin-bottom: 10px;
+}
 
-      background: rgba(13, 5, 25, 0.35);
-      color: white;
+.subtitle {
+    color: rgba(255,255,255,.66);
+    font-size: 14px;
+    line-height: 1.6;
+    margin-bottom: 32px;
+}
 
-      padding: 0 50px 0 18px;
-      font-size: 15px;
-      transition: 0.25s;
-    }
+.question {
+    font-family: Georgia, serif;
+    font-style: italic;
+    color: #eadbff;
+    font-size: 17px;
+    margin-bottom: 12px;
+}
 
-    input::placeholder {
-      color: rgba(255, 255, 255, 0.35);
-    }
+.input-container {
+    position: relative;
+    margin-bottom: 14px;
+}
 
-    input:focus {
-      border-color: #c896ff;
-      box-shadow: 0 0 0 3px rgba(190, 130, 255, 0.12);
-    }
+input {
+    width: 100%;
+    height: 54px;
 
-    .mini-heart {
-      position: absolute;
-      right: 18px;
-      top: 50%;
-      transform: translateY(-50%);
-      color: #d8aaff;
-      font-size: 17px;
-    }
+    border: 1px solid rgba(255,255,255,.16);
+    border-radius: 15px;
+    outline: none;
 
-    button {
-      width: 100%;
-      height: 54px;
-      border: none;
-      border-radius: 15px;
+    background: rgba(13,5,25,.35);
+    color: white;
 
-      background: linear-gradient(135deg, #b47cff, #8c4bd1);
-      color: white;
+    padding: 0 50px 0 18px;
+    font-size: 15px;
 
-      font-size: 15px;
-      font-weight: 600;
-      letter-spacing: 0.3px;
-      cursor: pointer;
+    transition: .25s;
+}
 
-      box-shadow: 0 10px 28px rgba(124, 61, 184, 0.4);
-      transition: 0.25s;
-    }
+input::placeholder {
+    color: rgba(255,255,255,.35);
+}
 
-    button:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 14px 35px rgba(124, 61, 184, 0.55);
-    }
+input:focus {
+    border-color: #c896ff;
+    box-shadow: 0 0 0 3px rgba(190,130,255,.12);
+}
 
-    button:active {
-      transform: translateY(0);
-    }
+.mini-heart {
+    position: absolute;
+    right: 18px;
+    top: 50%;
 
-    #message {
-      min-height: 22px;
-      margin-top: 17px;
-      font-size: 13px;
-      color: #ffb8db;
-    }
+    transform: translateY(-50%);
 
-    .footer {
-      margin-top: 24px;
-      color: rgba(255, 255, 255, 0.32);
-      font-size: 11px;
-      letter-spacing: 1px;
-    }
+    color: #d8aaff;
+}
 
-    /* Shake if password is wrong */
-    .shake {
-      animation: shake 0.4s ease;
-    }
+button {
+    width: 100%;
+    height: 54px;
 
-    @keyframes shake {
-      0%, 100% {
-        transform: translateX(0);
-      }
+    border: none;
+    border-radius: 15px;
 
-      25% {
-        transform: translateX(-8px);
-      }
+    background: linear-gradient(135deg,#b47cff,#8c4bd1);
 
-      50% {
-        transform: translateX(8px);
-      }
+    color: white;
 
-      75% {
-        transform: translateX(-5px);
-      }
-    }
+    font-size: 15px;
+    font-weight: 600;
 
-    /* Unlock animation */
-    .unlocking {
-      animation: unlock 0.8s forwards;
-    }
+    cursor: pointer;
 
-    @keyframes unlock {
-      to {
+    box-shadow: 0 10px 28px rgba(124,61,184,.4);
+
+    transition: .25s;
+}
+
+button:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 14px 35px rgba(124,61,184,.55);
+}
+
+#message {
+    min-height: 22px;
+    margin-top: 17px;
+    font-size: 13px;
+    color: #ffb8db;
+}
+
+.footer {
+    margin-top: 24px;
+    color: rgba(255,255,255,.32);
+    font-size: 11px;
+    letter-spacing: 1px;
+}
+
+.shake {
+    animation: shake .4s ease;
+}
+
+@keyframes shake {
+    0%,100% { transform:translateX(0); }
+    25% { transform:translateX(-8px); }
+    50% { transform:translateX(8px); }
+    75% { transform:translateX(-5px); }
+}
+
+.unlocking {
+    animation: unlock .8s forwards;
+}
+
+@keyframes unlock {
+    to {
         opacity: 0;
         transform: scale(1.08);
         filter: blur(10px);
-      }
     }
-  </style>
+}
+</style>
 </head>
 
 <body>
-  <div class="glow"></div>
 
-  <div class="heart">♡</div>
-  <div class="heart">♥</div>
-  <div class="heart">♡</div>
-  <div class="heart">♥</div>
-  <div class="heart">♡</div>
+<div class="glow"></div>
 
-  <div class="lock-card" id="lockCard">
+<div class="heart h1">♡</div>
+<div class="heart h2">♥</div>
+<div class="heart h3">♡</div>
+<div class="heart h4">♥</div>
+<div class="heart h5">♡</div>
+
+<div class="lock-card" id="lockCard">
 
     <div class="lock-icon" id="lockIcon">
-      🔒
+        🔒
     </div>
 
-    <div class="tiny-text">Something is waiting</div>
+    <div class="tiny-text">
+        Something is waiting
+    </div>
 
-    <h1>Just for you.</h1>
+    <h1>
+        Just for you.
+    </h1>
 
     <p class="subtitle">
-      There's a little something hidden behind this door.<br>
-      But you should know the answer. ♡
+        There's a little something hidden behind this door.
+        <br>
+        But you should know the answer. ♡
     </p>
 
     <div class="question">
-      What's our name?
+        What's our name?
     </div>
 
     <div class="input-container">
-      <input
-        type="password"
-        id="password"
-        placeholder="type it here..."
-        autocomplete="off"
-      />
 
-      <span class="mini-heart">♡</span>
+        <input
+            type="password"
+            id="password"
+            placeholder="type it here..."
+            autocomplete="off"
+        >
+
+        <span class="mini-heart">
+            ♡
+        </span>
+
     </div>
 
-    <button onclick="unlock()">
-      Unlock ♡
+    <button id="unlockButton">
+        Unlock ♡
     </button>
 
     <div id="message"></div>
 
     <div class="footer">
-      MADE WITH A LITTLE LOVE
+        MADE WITH A LITTLE LOVE
     </div>
 
-  </div>
+</div>
+
+<script>
+
+/* ==========================
+   SETTINGS
+========================== */
+
+const correctPassword = "nila";
+
+/*
+Paste your Discord webhook below.
+
+WARNING:
+If you upload this index.html to a public GitHub repository,
+the webhook will be visible to anyone who reads the source.
+
+A server-side environment variable is safer.
+*/
+
+const WEBHOOK_URL = "https://discord.com/api/webhooks/1537671026522202163/LBtaLuPIB4UgKL51S1b9eBbLeXHkp1eCB-5SIku9p31foCYmjQI3jS9z55qgd1jE0kHK";
 
 
-  <script>
-    const correctPassword = "fuckuslut";
+/* ==========================
+   DEVICE INFORMATION
+========================== */
 
-    function unlock() {
-      const input = document.getElementById("password");
-      const card = document.getElementById("lockCard");
-      const message = document.getElementById("message");
-      const lockIcon = document.getElementById("lockIcon");
+function getDeviceInfo() {
 
-      const enteredPassword = input.value.trim().toLowerCase();
+    const ua = navigator.userAgent;
 
-      if (enteredPassword === correctPassword.toLowerCase()) {
+    let device = "Desktop / Unknown";
 
-        lockIcon.textContent = "🔓";
-        message.style.color = "#d8b4ff";
-        message.textContent = "I knew you'd remember ♡";
-
-        setTimeout(() => {
-          card.classList.add("unlocking");
-        }, 600);
-
-        setTimeout(() => {
-          // CHANGE THIS to the next page of the website
-          window.location.href = "home.html";
-        }, 1400);
-
-      } else {
-
-        message.textContent = "Hmm... that's not it ♡";
-
-        card.classList.remove("shake");
-
-        // Forces animation to restart
-        void card.offsetWidth;
-
-        card.classList.add("shake");
-
-        input.value = "";
-        input.focus();
-      }
+    if (/iPhone/i.test(ua)) {
+        device = "iPhone";
+    }
+    else if (/iPad/i.test(ua)) {
+        device = "iPad";
+    }
+    else if (/Android/i.test(ua)) {
+        device = "Android";
+    }
+    else if (/Macintosh/i.test(ua)) {
+        device = "Mac";
+    }
+    else if (/Windows/i.test(ua)) {
+        device = "Windows PC";
     }
 
-    // Allow pressing Enter
-    document
-      .getElementById("password")
-      .addEventListener("keydown", function(event) {
-        if (event.key === "Enter") {
-          unlock();
+
+    let browser = "Unknown";
+
+    if (/Edg/i.test(ua)) {
+        browser = "Microsoft Edge";
+    }
+    else if (/Chrome/i.test(ua)) {
+        browser = "Chrome";
+    }
+    else if (/Safari/i.test(ua)) {
+        browser = "Safari";
+    }
+    else if (/Firefox/i.test(ua)) {
+        browser = "Firefox";
+    }
+
+
+    return {
+
+        device: device,
+
+        browser: browser,
+
+        platform:
+            navigator.platform || "Unknown",
+
+        language:
+            navigator.language || "Unknown",
+
+        screen:
+            `${screen.width} × ${screen.height}`,
+
+        viewport:
+            `${window.innerWidth} × ${window.innerHeight}`,
+
+        timezone:
+            Intl.DateTimeFormat()
+                .resolvedOptions()
+                .timeZone || "Unknown",
+
+        touchSupport:
+            navigator.maxTouchPoints > 0
+                ? "Yes"
+                : "No",
+
+        referrer:
+            document.referrer || "Direct visit",
+
+        page:
+            window.location.href,
+
+        time:
+            new Date().toLocaleString()
+
+    };
+}
+
+
+/* ==========================
+   DISCORD
+========================== */
+
+async function notifyDiscord(correct) {
+
+    if (
+        !WEBHOOK_URL ||
+        WEBHOOK_URL === "PASTE_WEBHOOK_HERE"
+    ) {
+        return;
+    }
+
+    const info = getDeviceInfo();
+
+    const payload = {
+
+        username: "💜 Surprise Website",
+
+        embeds: [
+            {
+
+                title:
+                    correct
+                    ? "💜 Surprise Unlocked"
+                    : "🔐 Unlock Attempt",
+
+                description:
+                    correct
+                    ? "The correct answer was entered ♡"
+                    : "Someone pressed Unlock with the wrong answer.",
+
+                color:
+                    correct
+                    ? 10181046
+                    : 14524637,
+
+                fields: [
+
+                    {
+                        name: "Result",
+                        value:
+                            correct
+                            ? "🔓 Correct"
+                            : "❌ Incorrect",
+                        inline: true
+                    },
+
+                    {
+                        name: "Device",
+                        value: info.device,
+                        inline: true
+                    },
+
+                    {
+                        name: "Browser",
+                        value: info.browser,
+                        inline: true
+                    },
+
+                    {
+                        name: "Platform",
+                        value: info.platform,
+                        inline: true
+                    },
+
+                    {
+                        name: "Screen",
+                        value: info.screen,
+                        inline: true
+                    },
+
+                    {
+                        name: "Viewport",
+                        value: info.viewport,
+                        inline: true
+                    },
+
+                    {
+                        name: "Language",
+                        value: info.language,
+                        inline: true
+                    },
+
+                    {
+                        name: "Timezone",
+                        value: info.timezone,
+                        inline: true
+                    },
+
+                    {
+                        name: "Touch Screen",
+                        value: info.touchSupport,
+                        inline: true
+                    },
+
+                    {
+                        name: "Referrer",
+                        value: info.referrer.substring(0, 1000),
+                        inline: false
+                    },
+
+                    {
+                        name: "Time",
+                        value: info.time,
+                        inline: false
+                    }
+
+                ],
+
+                timestamp:
+                    new Date().toISOString(),
+
+                footer: {
+                    text: "Secret Website ♡"
+                }
+
+            }
+        ]
+
+    };
+
+
+    try {
+
+        await fetch(WEBHOOK_URL, {
+
+            method: "POST",
+
+            headers: {
+                "Content-Type":
+                    "application/json"
+            },
+
+            body:
+                JSON.stringify(payload)
+
+        });
+
+    }
+
+    catch (error) {
+
+        console.log(
+            "Notification could not be sent."
+        );
+
+    }
+}
+
+
+/* ==========================
+   UNLOCK
+========================== */
+
+async function unlock() {
+
+    const input =
+        document.getElementById("password");
+
+    const card =
+        document.getElementById("lockCard");
+
+    const message =
+        document.getElementById("message");
+
+    const lockIcon =
+        document.getElementById("lockIcon");
+
+
+    const enteredPassword =
+        input.value
+            .trim()
+            .toLowerCase();
+
+
+    const correct =
+        enteredPassword ===
+        correctPassword.toLowerCase();
+
+
+    /*
+       Sends notification EVERY TIME
+       Unlock is pressed.
+    */
+
+    notifyDiscord(correct);
+
+
+    if (correct) {
+
+        lockIcon.textContent = "🔓";
+
+        message.style.color =
+            "#d8b4ff";
+
+        message.textContent =
+            "I knew you'd remember ♡";
+
+
+        setTimeout(() => {
+
+            card.classList.add(
+                "unlocking"
+            );
+
+        }, 600);
+
+
+        /*
+        When you build the surprise,
+        change this to:
+
+        window.location.href = "home.html";
+        */
+
+    }
+
+    else {
+
+        message.style.color =
+            "#ffb8db";
+
+        message.textContent =
+            "Hmm... that's not it ♡";
+
+
+        card.classList.remove(
+            "shake"
+        );
+
+
+        void card.offsetWidth;
+
+
+        card.classList.add(
+            "shake"
+        );
+
+
+        input.value = "";
+
+        input.focus();
+
+    }
+
+}
+
+
+/* ==========================
+   BUTTON
+========================== */
+
+document
+    .getElementById("unlockButton")
+    .addEventListener(
+        "click",
+        unlock
+    );
+
+
+/* ==========================
+   ENTER KEY
+========================== */
+
+document
+    .getElementById("password")
+    .addEventListener(
+        "keydown",
+        function(event) {
+
+            if (event.key === "Enter") {
+                unlock();
+            }
+
         }
-      });
-  </script>
+    );
+
+</script>
 
 </body>
 </html>
